@@ -1,0 +1,30 @@
+$clr1: #37919a;
+$clr2: #00a30f;
+.heroSection {
+	// background-color: #0e0e0e;
+	.backgroundImage {
+		position: relative;
+		top: 0;
+		left: 0;
+		height: 80vh;
+		min-height: 280px;
+		width: 50%;
+		background-size: cover;
+		background-position: center;
+		&::after {
+			content: "";
+			position: absolute;
+
+			width: 100%;
+			height: 100%;
+
+			background: rgb(255, 255, 255);
+			background: linear-gradient(
+				90deg,
+				rgba(255, 255, 255, 0) 0%,
+				rgba(14, 14, 14, 0.5) 70%,
+				rgba(14, 14, 14, 1) 90%
+			);
+		}
+	}
+}
