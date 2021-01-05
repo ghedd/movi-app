@@ -1,0 +1,122 @@
+@import "../../utils/styles/mixins.scss";
+.mediaItem {
+	// grid-row: 1/-1;
+	scroll-snap-align: start;
+	width: 135px;
+	height: clamp(135px, 15vw, 250px);
+	@media screen and (min-width: 960px) {
+		width: 220px;
+		height: 300px;
+	}
+	border-radius: 10px;
+	// background: red;
+	&__poster {
+		border-radius: 10px;
+		background: #e9e62d;
+		/* background: linear-gradient(
+			115.87deg,
+			rgb(54, 114, 248) 0%,
+			rgb(176, 30, 255) 100%
+		); */
+	}
+	&__brief {
+		padding: 0 0.5rem;
+		border-radius: 10px;
+		height: 100%;
+		flex-direction: column;
+		justify-content: center;
+		height: 50%;
+		display: none;
+		@media screen and (min-width: 960px) {
+			display: flex;
+			position: relative;
+		}
+
+		.mediaPlot {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 3;
+			overflow: hidden;
+			width: 100%;
+			// white-space: nowrap;
+			// text-overflow: ellipsis;
+		}
+	}
+}
+
+/* ------------- positioning ------------- */
+
+.mediaItem {
+	position: relative;
+	&__poster {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+	&__brief {
+		position: absolute;
+		height: 50%;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+}
+/* --------------------------------------- */
+
+/* -------------- animation -------------- */
+.mediaItem {
+	// width: 100%;
+	transition: all 0.15s ease-in-out;
+	z-index: 0;
+	$delay: 200ms;
+	transition-delay: $delay;
+	&__brief {
+		opacity: 0;
+		transition: 400ms ease-out;
+		@include bgrOverlayMainTheme(0.5, 0.5);
+	}
+	&:hover {
+		// height: 35vh;
+		// width: 150%;
+		transform: scale(1.2);
+		z-index: 2;
+		transform-origin: center;
+		@include shadowRaisedSpread;
+
+		.mediaItem__brief {
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				50% {
+					opacity: 0.5;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			animation: fadeIn 400ms ease forwards;
+			animation-delay: 200ms;
+
+			// opacity: 1;
+			& > * {
+				transform: scale(0.95);
+			}
+		}
+	}
+
+	&.rightMost:hover {
+		transform-origin: center right;
+		transform: scale(1.2) translateX(-0.5rem);
+	}
+	&.leftMost:hover {
+		transform-origin: center left;
+		transform: scale(1.2) translateX(0.5rem);
+	}
+}
+
+.mediaItem {
+	cursor: pointer;
+}

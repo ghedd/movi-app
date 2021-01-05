@@ -1,0 +1,18 @@
+// overlay background
+@mixin bgrOverlayMainTheme($firstClrOpac: 0.21, $lastClrOpac: 1) {
+	background: linear-gradient(
+		115.87deg,
+		rgba(54, 114, 248, $firstClrOpac) 0%,
+		rgba(176, 30, 255, $lastClrOpac) 100%
+	);
+}
+// containers/wrappers
+@mixin mainContainer($maxWidth: 1200px) {
+	max-width: $maxWidth;
+	margin: 0 auto;
+}
+
+// effects
+@mixin shadowRaisedSpread($shadowOpacity: 0.4) {
+	box-shadow: 0px 30px 60px 0px rgba(0, 0, 0, $shadowOpacity);
+}

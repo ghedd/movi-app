@@ -1,4 +1,7 @@
-$clrPrimary1: #fafafa;
+@import "../../utils/styles/variables.scss";
+@import "../../utils/styles/mixins.scss";
+
+
 @mixin bgrOverlayMainTheme {
 	background: linear-gradient(
 		115.87deg,
@@ -6,11 +9,7 @@ $clrPrimary1: #fafafa;
 		rgb(176, 30, 255) 100%
 	);
 }
-@mixin mainContainer($maxWidth: 1200px) {
-	// width: 100%;
-	max-width: $maxWidth;
-	margin: 0 auto;
-}
+
 .heroSection {
 	background-color: #0e0e0e;
 	height: 60vh;

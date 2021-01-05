@@ -1,0 +1,122 @@
+@import "../../utils/styles/typography.scss";
+@import "../../utils/styles/variables.scss";
+.itemList {
+	width: 100%;
+	background-color: #26262d;
+	min-height: 180px;
+	height: 10vh;
+	// max-height: 250px;
+	// overflow-y: visible;
+
+	@media screen and(min-width: 960px) {
+		height: 350px;
+	}
+	padding: 1rem 0;
+	&__container {
+		/* ---- glutter before & after slider ---- */
+		&::before,
+		&::after {
+			content: "";
+		}
+		&::before {
+			margin-left: 1rem;
+		}
+		&::after {
+			margin-right: 1rem;
+		}
+		/* --------------------------------------- */
+		// overflow-y: visible;
+		height: 100%;
+		width: auto;
+		background-position: top, bottom;
+		background-repeat: repeat-x;
+		display: flex;
+		align-items: center;
+		// justify-content: center;
+
+		.slider {
+			/* ----------- hide scroll bar ----------- */
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+			-ms-overflow-style: none; /* IE and Edge */
+			scrollbar-width: none; /* Firefox */
+			overflow-x: scroll;
+			/* --------------------------------------- */
+			// overflow-y: visible;
+			// position: relative;
+
+			display: grid;
+			gap: 0 1rem;
+			grid-template-rows: minmax(auto, 1fr);
+			grid-auto-flow: column;
+			// grid-template-columns: repeat(auto-fill);
+			align-items: center;
+			padding: 5rem 0;
+			min-width: 300px;
+			/* ----------- scroll behavior ----------- */
+			scroll-snap-type: x proximity;
+			scroll-behavior: smooth;
+		}
+	}
+}
+
+.sliderControl {
+	cursor: pointer;
+	height: 80%;
+	min-height: 60px;
+	width: auto;
+	max-width: 60px;
+	background: rgba(0, 0, 0, 0.15);
+	border: 1px solid transparent;
+
+	transform: translateY(-50%);
+	top: 50%;
+	&__icon {
+		// display: inline-block;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		width: clamp(5px, 5vw, 30px);
+		opacity: 0.5;
+		height: auto;
+		// background: white;
+	}
+	&--prev {
+		left: 0;
+		border-radius: 0 10px 10px 0;
+	}
+	&--next {
+		right: 0;
+		border-radius: 10px 0 0 10px;
+	}
+	&:hover {
+		background: rgba(0, 0, 0, 0.3);
+		.sliderControl__icon {
+			opacity: 1;
+		}
+	}
+	&:focus {
+		outline: 0;
+		// border: 1px dotted $clrPrimary1;
+	}
+	&--disabled {
+		opacity: 0;
+		&:hover {
+			opacity: 0;
+		}
+	}
+}
+
+/* ------------- positioning ------------- */
+
+.itemList {
+	&__container {
+		position: relative;
+	}
+}
+
+.sliderControl {
+	position: absolute;
+}

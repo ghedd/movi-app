@@ -1,6 +1,6 @@
 //utils
 import React from "react";
-import "./App.css";
+import "./styles.scss";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // child components
 import HomePage from "./pages/HomePage/index";

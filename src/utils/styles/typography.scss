@@ -1,0 +1,22 @@
+@import "./variables.scss";
+
+body,
+html {
+	font-family: "Open Sans", sans-serif;
+}
+
+.mediaTypeName {
+	font-family: "Open Sans", sans-serif;
+	color: $clrPrimary1;
+	text-transform: uppercase;
+	font-size: clamp(18px, 5vw, 22px);
+	padding-left: 1rem;
+}
+
+.fontFooter {
+	font-family: "Open Sans Condensed", sans-serif;
+	color: $clrPrimary1;
+	font-weight: 300;
+	font-size: clamp(16px, 5vw, 18px);
+	padding-left: 1rem;
+}

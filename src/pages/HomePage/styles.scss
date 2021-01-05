@@ -1,0 +1,11 @@
+@import "../../utils/styles/variables.scss";
+@import "../../utils/styles/mixins.scss";
+
+.homePage {
+	background: $clrBgrPrimary;
+	min-height: 100vh;
+	&__container {
+		@include mainContainer;
+		padding: 6rem 0;
+	}
+}
