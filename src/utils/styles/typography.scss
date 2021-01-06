@@ -1,22 +1,49 @@
 @import "./variables.scss";
+@import "./mixins.scss";
 
 body,
 html {
 	font-family: "Open Sans", sans-serif;
 }
 
-.mediaTypeName {
-	font-family: "Open Sans", sans-serif;
+body > * {
 	color: $clrPrimary1;
+}
+
+// page sections
+.fontMediaSection {
+	font-family: "Open Sans", sans-serif;
+	// color: $clrPrimary1;
 	text-transform: uppercase;
 	font-size: clamp(18px, 5vw, 22px);
 	padding-left: 1rem;
 }
+.fontHeader,
+.fontFooter,
+.fontMediaItem__title,
+.fontMediaItem__year {
+	font-family: "Open Sans Condensed", sans-serif;
+}
 
 .fontFooter {
-	font-family: "Open Sans Condensed", sans-serif;
-	color: $clrPrimary1;
+	// color: $clrPrimary1;
 	font-weight: 300;
-	font-size: clamp(16px, 5vw, 18px);
+	font-size: clamp(15px, 5vw, 16px);
 	padding-left: 1rem;
+}
+
+// component fonts
+
+/* .fontMediaItem__title {
+	
+	@include textTruncation(20px, 1, 2);
+} */
+
+.fontMediaItem__year {
+	font-size: clamp(16px, 5vw, 18px);
+	// font-style: italic;
+}
+.fontMediaItem__plot {
+	// @include textTruncation(16px, 1.2, 3);
+	margin-top: 0.5rem;
 }

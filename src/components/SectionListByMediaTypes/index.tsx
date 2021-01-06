@@ -9,7 +9,7 @@ const SectionListByMediaTypes: React.FC<mediaTypeProps> = ({
 }: mediaTypeProps) => {
 	return (
 		<div className="mediaSection">
-			<h2 className="mediaSectionList mediaTypeName">{listName}</h2>
+			<h2 className="mediaSectionList fontMediaSection">{listName}</h2>
 			{/* <ItemList /> */}
 		</div>
 	);

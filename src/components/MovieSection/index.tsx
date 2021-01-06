@@ -39,7 +39,7 @@ const mediaArray = [
 const MovieSection: React.FC = () => {
 	return (
 		<div className="mediaSection">
-			<h2 className="mediaSectionList mediaTypeName">movies</h2>
+			<h2 className="mediaSectionList fontMediaSection">movies</h2>
 			<ItemList mediaList={mediaArray} />
 		</div>
 	);

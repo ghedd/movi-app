@@ -31,15 +31,19 @@
 			display: flex;
 			position: relative;
 		}
-
-		.mediaPlot {
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			-webkit-line-clamp: 3;
-			overflow: hidden;
-			width: 100%;
-			// white-space: nowrap;
-			// text-overflow: ellipsis;
+		&__title {
+			// the mixin takes 3 args
+			// fontSize, lineHeight &
+			// linesToShow
+			font-size: 20px;
+			line-height: 1.2;
+		}
+		&__year {
+			font-size: 16px !important;
+		}
+		&__plot {
+			font-size: 16px;
+			line-height: 1.5;
 		}
 	}
 }

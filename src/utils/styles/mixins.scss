@@ -1,3 +1,4 @@
+@import "./variables.scss";
 // overlay background
 @mixin bgrOverlayMainTheme($firstClrOpac: 0.21, $lastClrOpac: 1) {
 	background: linear-gradient(
@@ -15,4 +16,33 @@
 // effects
 @mixin shadowRaisedSpread($shadowOpacity: 0.4) {
 	box-shadow: 0px 30px 60px 0px rgba(0, 0, 0, $shadowOpacity);
+}
+
+@mixin textTruncation($fontSize, $lineHeight, $linesToShow) {
+	/* position: relative;
+	overflow: hidden;
+	display: block;
+	max-height: $fontSize * $lineHeight * $linesToShow;
+	font-size: $fontSize;
+	line-height: $lineHeight;
+	width: 20ch;
+	&::after {
+		content: "...";
+		position: absolute;
+		height: $fontSize * $lineHeight;
+		max-width: 50px;
+		right: 0;
+		bottom: 0;
+		color: $clrPrimary1;
+	} */
+	font-size: $fontSize;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	line-height: $lineHeight; /* fallback */
+	height: $lineHeight * $fontSize * $linesToShow;
+	// min-height: 52.5px;
+	-webkit-line-clamp: $linesToShow;
+	-webkit-box-orient: vertical;
+	padding-bottom: 1rem;
 }

@@ -41,6 +41,22 @@ const MediaItem: React.FC<MediaItemProps> = ({
 		// 	`left most: ${isLeftMost}, right most: ${isRightMost}, distance: ${distance}, client width: ${clientWidth}, glutter: ${listGlutter} `
 		// );
 	};
+
+	const truncateText = (
+		content: string | undefined,
+		truncateLength: number
+	): string | null => {
+		if (content === undefined) return null;
+		if (content.length <= truncateLength) return content;
+		const truncatedText = content.slice(0, truncateLength).trim();
+		const ellipsis = "...";
+		const outputText = truncatedText + ellipsis;
+		return outputText;
+	};
+	const longTitle =
+		"Night of the Day of the Dawn of the Son of the Bride of the Return of the Revenge of the Terror of the Attack of the Evil, Mutant, Alien, Flesh Eating, Hellbound, Zombified Living Dead";
+	const loremIpsum =
+		"Lorem isplot dolor sit amet consectetur adipisicing elit. Autem, possimus? Quaerat cupiditate officiis reprehenderit ut?";
 	const resetHoverEffect = (): void => {
 		setIsLeftMost(undefined);
 		setIsRightMost(undefined);
@@ -60,13 +76,18 @@ const MediaItem: React.FC<MediaItemProps> = ({
 		>
 			<div className="mediaItem__poster">Poster</div>
 			<div className="mediaItem__brief">
-				<span className="mediaTitle">{mediaTitle || `I am an item`}</span>
-				<span className="mediaYear">
+				<span className="mediaItem__brief__title  fontMediaItem__title">
+					{
+						truncateText( mediaTitle, 50 ) ||
+						truncateText(longTitle, 40)
+					}
+				</span>
+				<span className="mediaItem__brief__year fontMediaItem__year">
 					{otherProps.mediaYearOfProd || `20xx`}
 				</span>
-				<p className="mediaPlot">
-					{otherProps.mediaPlot ||
-						`Lorem isplot dolor sit amet consectetur adipisicing elit. Autem, possimus? Quaerat cupiditate officiis reprehenderit ut?`}
+				<p className="mediaItem__brief__plot fontMediaItem__plot">
+					{truncateText(otherProps.mediaPlot, 80) ||
+						truncateText(loremIpsum, 80)}
 				</p>
 			</div>
 		</div>
