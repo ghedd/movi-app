@@ -1,0 +1,37 @@
+@import "../../utils/styles/mixins.scss";
+@import "../../utils/styles/variables.scss";
+@import "../../components/HeroSection/styles.scss";
+.searchPage {
+	position: relative;
+
+	&__searchBarBgr {
+		height: 20vh;
+		min-height: 150px;
+	}
+	.searchBarWrapper {
+		@include mainContainer();
+		display: flex;
+	}
+	.searchBarWrapper {
+		position: relative;
+		width: calc(100% - 2rem);
+		position: absolute;
+		top: calc(1rem + 5vw);
+		left: 0;
+		right: 0;
+		// transform: translate(-50%, 50%);
+
+		justify-content: center;
+		@media screen and (min-width: 768px) {
+			justify-content: flex-end;
+			// align-items: flex-end;
+		}
+		> .searchBar {
+			max-width: 500px;
+		}
+	}
+
+}
+.backgroundImage {
+	@extend .backgroundImage;
+}

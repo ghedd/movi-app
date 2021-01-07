@@ -1,7 +1,11 @@
 @import "../../utils/styles/mixins.scss";
 .footer {
 	@include bgrOverlayMainTheme(1, 1);
-
+/* 	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0; */
+	margin-top: auto;
 	&__container {
 		height: 100%;
 		min-height: clamp(50px, 5vw, 60px);

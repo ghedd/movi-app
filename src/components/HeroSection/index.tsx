@@ -12,8 +12,8 @@ const HeroSection: React.FC = () => {
 
 			<div className="heroContentWrapper">
 				<div className="heroContent">
-					<h1 className="heroContent__title">discover now</h1>
-					<p className="heroContent__subtitle">
+					<h1 className="heroContent__title fontHero__title">discover now</h1>
+					<p className="heroContent__subtitle fontHero__subtitle">
 						Your favorite shows are right here
 					</p>
 					<SearchBar />

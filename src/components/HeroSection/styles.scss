@@ -1,15 +1,6 @@
 @import "../../utils/styles/variables.scss";
 @import "../../utils/styles/mixins.scss";
 
-
-@mixin bgrOverlayMainTheme {
-	background: linear-gradient(
-		115.87deg,
-		rgba(54, 114, 248, 0.21) 0%,
-		rgb(176, 30, 255) 100%
-	);
-}
-
 .heroSection {
 	background-color: #0e0e0e;
 	height: 60vh;
@@ -21,71 +12,68 @@
 	@media screen and (min-width: 960px) {
 		height: 50vh;
 	}
-	.backgroundImage {
+}
+
+.backgroundImage {
+	width: 100%;
+	height: 100%;
+
+	position: relative;
+	top: 0;
+	left: 0;
+	img {
+		position: absolute;
 		width: 100%;
 		height: 100%;
-
-		position: relative;
+		object-fit: cover;
+		object-position: center;
+		// mix-blend-mode: luminosity ;
+		filter: grayscale(1);
+	}
+	&::after {
+		content: "";
+		width: 100%;
+		height: 100%;
+		position: absolute;
 		top: 0;
 		left: 0;
-		img {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			object-position: center;
-			mix-blend-mode: luminosity;
-			// }
-		}
-		&::after {
-			content: "";
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			@include bgrOverlayMainTheme;
-		}
+		@include bgrOverlayMainTheme;
 	}
-	.heroContentWrapper {
-		width: 100%;
-		position: absolute;
-		bottom: 2rem;
-		left: 50%;
-		transform: translateX(-50%);
-		@include mainContainer();
-		display: flex;
-		justify-content: center;
-		@media screen and (min-width: 768px) {
-			justify-content: flex-end;
-			// align-items: flex-end;
-		}
-		.heroContent {
-			max-width: 500px;
-			width: 90vw;
+}
+.heroContentWrapper {
+	width: 100%;
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	@include mainContainer();
+	display: flex;
+	justify-content: center;
+	@media screen and (min-width: 768px) {
+		justify-content: flex-end;
+		// align-items: flex-end;
+	}
+	.heroContent {
+		max-width: 500px;
+		width: 90vw;
 
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			margin-bottom: 2rem;
-			padding: 0 1rem;
-			&__title,
-			&__subtitle {
-				color: $clrPrimary1;
-				margin-top: 0;
-			}
-			&__title {
-				text-transform: capitalize;
-				font-size: clamp(40px, 10vw, 70px);
-				margin-bottom: 0.8rem;
-			}
-			&__subtitle {
-				font-size: clamp(16px, 5vw, 20px);
-				text-align: center;
-				margin-bottom: 2.5rem;
-				line-height: 1.5;
-			}
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 2rem;
+		padding: 0 1rem;
+		&__title,
+		&__subtitle {
+			color: $clrPrimary1;
+			margin-top: 0;
+		}
+		&__title {
+			margin-bottom: 0.8rem;
+		}
+		&__subtitle {
+			text-align: center;
+			margin-bottom: 2.5rem;
 		}
 	}
 }

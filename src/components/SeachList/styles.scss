@@ -1,0 +1,12 @@
+@import "../../utils/styles/variables.scss";
+@import "../../utils/styles/mixins.scss";
+.searchList {
+	@include mainContainer();
+	display: flex;
+	background: $clrBgrPrimary;
+	// min-height: 60vh;
+	padding: 1.5rem 0;
+	margin-top: $marginFluidMed;
+	flex-direction: column;
+	width: calc(100% - 2rem);
+}

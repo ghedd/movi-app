@@ -1,3 +1,14 @@
 // colors
 $clrPrimary1: #fafafa;
 $clrBgrPrimary: #0e0e0e;
+$clrBgrSecondary: #26262d;
+$clrGradientPrimary: linear-gradient(
+	115.87deg,
+	rgb(54, 114, 248) 0%,
+	rgb(176, 30, 255) 100%
+);
+
+// margin
+$marginFluidSmall: calc(0.5rem + 0.5vw);
+$marginFluidMed: calc(0.5rem + 1vw);
+$marginFluidLarge: calc(0.5rem + 1.5vw);

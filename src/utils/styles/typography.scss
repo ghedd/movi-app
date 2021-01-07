@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&family=Open+Sans+Condensed:wght@700&display=swap");
 @import "./variables.scss";
 @import "./mixins.scss";
 
@@ -10,6 +11,18 @@ body > * {
 	color: $clrPrimary1;
 }
 
+// hero fonts
+.fontHero__title {
+	@extend .fontHeader;
+	text-transform: capitalize;
+	font-size: clamp(40px, 10vw, 70px);
+	line-height: 1.2;
+}
+.fontHero__subtitle {
+	font-size: clamp(16px, 5vw, 20px);
+	line-height: 1.5;
+}
+
 // page sections
 .fontMediaSection {
 	font-family: "Open Sans", sans-serif;
@@ -18,29 +31,29 @@ body > * {
 	font-size: clamp(18px, 5vw, 22px);
 	padding-left: 1rem;
 }
-.fontHeader,
-.fontFooter,
-.fontMediaItem__title,
-.fontMediaItem__year {
+.fontHeader {
 	font-family: "Open Sans Condensed", sans-serif;
 }
 
 .fontFooter {
 	// color: $clrPrimary1;
-	font-weight: 300;
+	// font-weight: 300;
 	font-size: clamp(15px, 5vw, 16px);
 	padding-left: 1rem;
 }
 
 // component fonts
 
-/* .fontMediaItem__title {
-	
-	@include textTruncation(20px, 1, 2);
-} */
+.fontMediaItem__title {
+	@extend .fontHeader;
+	font-size: clamp(18px, 5vw, 20px);
+	font-weight: 700;
+}
 
 .fontMediaItem__year {
-	font-size: clamp(16px, 5vw, 18px);
+	font-size: clamp(16px, 5vw, 20x);
+	font-weight: 300;
+
 	// font-style: italic;
 }
 .fontMediaItem__plot {
