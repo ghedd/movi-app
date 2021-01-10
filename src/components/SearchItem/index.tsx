@@ -2,7 +2,7 @@ import React from "react";
 import "./styles.scss";
 
 import posterMock from "../../assets/the-shire-2.png";
-import AddToNominationListButton from "../AddToNominationListBtn";
+import ButtonAddToNominationList from "../ButtonAddToNominationList";
 
 const SearchItem: React.FC = () => {
 	return (
@@ -18,7 +18,7 @@ const SearchItem: React.FC = () => {
 					20xx
 				</span>
 			</div>
-			<AddToNominationListButton />
+			<ButtonAddToNominationList />
 		</div>
 	);
 };

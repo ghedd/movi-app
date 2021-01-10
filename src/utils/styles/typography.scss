@@ -25,7 +25,9 @@ body > * {
 
 // page sections
 .fontMediaSection {
-	font-family: "Open Sans", sans-serif;
+	// font-family: "Open Sans", sans-serif;
+	font-family: "Open Sans Condensed", sans-serif;
+	margin-bottom: 1rem;
 	// color: $clrPrimary1;
 	text-transform: uppercase;
 	font-size: clamp(18px, 5vw, 22px);
@@ -59,4 +61,38 @@ body > * {
 .fontMediaItem__plot {
 	// @include textTruncation(16px, 1.2, 3);
 	margin-top: 0.5rem;
+}
+
+// media page fonts
+.fontMediaPage {
+	&__title {
+		@extend .fontHero__title;
+		font-size: clamp(18px, 5vw, 50px);
+		overflow: hidden;
+		line-height: 1.2;
+		-webkit-line-clamp: 2;
+		// max-height: 8rem;
+		-webkit-box-orient: vertical;
+		display: block;
+		display: -webkit-box;
+		overflow: hidden !important;
+		text-overflow: ellipsis;
+		margin-bottom: 0.5rem;
+	}
+
+	&__plot {
+		font-style: italic;
+		font-size: clamp(16px, 5vw, 20px);
+		line-height: 1.5;
+	}
+	&__infoLabel {
+		font-family: "Open Sans Condensed";
+		font-weight: bold;
+		display: block;
+	}
+	&__infoContent {
+		padding-top: 0.15rem;
+		// margin-bottom: 0.8rem;
+		line-height: 1.8;
+	}
 }

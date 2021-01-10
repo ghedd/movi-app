@@ -5,7 +5,7 @@ import MovieSection from "../../components/MovieSection";
 import "./styles.scss";
 const HomePage: React.FC = () => {
 	return (
-		<div className="page homePage">
+		<main className="page homePage">
 			<HeroSection />
 			<div className="homePage__container">
 				<MovieSection />
@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
 				{/* recently viewed */}
 				{/* your nomination list */}
 			</div>
-		</div>
+		</main>
 	);
 };
 

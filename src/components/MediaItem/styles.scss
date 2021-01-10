@@ -76,6 +76,7 @@
 	z-index: 0;
 	$delay: 200ms;
 	transition-delay: $delay;
+	transform-origin: center;
 	&__brief {
 		opacity: 0;
 		transition: 400ms ease-out;
@@ -86,7 +87,6 @@
 		// width: 150%;
 		transform: scale(1.2);
 		z-index: 2;
-		transform-origin: center;
 		@include shadowRaisedSpread;
 
 		.mediaItem__brief {
@@ -112,11 +112,13 @@
 	}
 
 	&.rightMost:hover {
-		transform-origin: center right;
+		// transform-origin: center right;
+		transform-origin: right;
 		transform: scale(1.2) translateX(-0.5rem);
 	}
 	&.leftMost:hover {
-		transform-origin: center left;
+		// transform-origin: center left;
+		transform-origin: left;
 		transform: scale(1.2) translateX(0.5rem);
 	}
 }

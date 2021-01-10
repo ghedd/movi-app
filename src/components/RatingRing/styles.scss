@@ -1,0 +1,27 @@
+@import "../../utils/styles/variables.scss";
+
+.rating {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	&__value {
+		font-family: "Open Sans Condensed";
+		position: absolute;
+		font-weight: 700;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: clamp(10px, 5vw, 15px);
+	}
+	&__ring {
+		stroke: #fafafa;
+		// stroke-dasharray: 10 20;
+		transition: 100ms stroke-dashoffset ease-out;
+		// axis compensation
+		transform: rotate(-90deg);
+		transform-origin: 50% 50%;
+		// animation: progresssing 1s ease-out forwards;
+		// stroke-dashoffset: var(--strokeDashOffset);
+	}
+}

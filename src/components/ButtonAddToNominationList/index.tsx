@@ -3,6 +3,10 @@ import "./styles.scss";
 
 import { ReactComponent as AwardIcon } from "../../assets/icon_add-nomination.svg";
 const AddToNominationListButton: React.FC = () => {
+	/* ----------------- TODO ---------------- */
+	// [ ] create optional flexible tooltip
+	/* --------------------------------------- */
+
 	const [isAdded, setIsAdded] = useState<boolean>(false);
 
 	const handleToggle = (): void => {
@@ -10,7 +14,7 @@ const AddToNominationListButton: React.FC = () => {
 		console.log(isAdded);
 	};
 
-  return (
+	return (
 		<button
 			className="btn addNominationBtn"
 			type="button"
