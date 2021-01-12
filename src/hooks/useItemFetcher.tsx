@@ -3,7 +3,7 @@ import { MediaDetails } from "../pages/MediaPage";
 import api from "../utils/axios/api";
 
 const useItemFetcher = (queryID: string): any => {
-	const [status, setStatus] = useState("");
+	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [data, setData] = useState<MediaDetails>(Object);
 
@@ -16,12 +16,12 @@ const useItemFetcher = (queryID: string): any => {
 			})
 			.then((r) => {
 				if (r.data.Response === "False") {
-					setStatus("Error");
+					setIsLoading(false);
 					setError(r.data.Error);
 				}
 				const mediaItem = r.data;
 				setData(mediaItem);
-				setStatus("fetched");
+				setIsLoading(false);
 			})
 			.catch((e) => {
 				setError(e);
@@ -33,7 +33,7 @@ const useItemFetcher = (queryID: string): any => {
 		getMediaItem();
 	}, []);
 
-	return { status, data, error };
+	return { isLoading, data, error };
 };
 
 export default useItemFetcher;

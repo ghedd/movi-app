@@ -50,6 +50,8 @@ const MediaPage: React.FC<QueryProp> = ({ query }: QueryProp) => {
 
 	/* ----------------- TODO ---------------- */
 	// [ ] get data using custom hook
+	/* --------------------------------------- */
+
 	if (isLoading)
 		return (
 			<main className="page mediaPage">
