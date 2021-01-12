@@ -68,15 +68,15 @@
 }
 // headlines styling
 .mediaPage__details {
-	// position: relative;
-	// transform: translateY(calc(-25% - 1vw));
+	position: relative;
+	z-index: 1;
 	@include mainContainer;
 	width: calc(100% - 2rem);
 	.details {
 		&__poster {
-			// height: calc(2rem + 15vw);
-			// max-width: 300px;
 			img {
+				min-width: 160px;
+				min-height: 230px;
 				// transform: translateY(calc(-50% + 1rem));
 				// transform: translateY(-35%);
 				// max-height: 400px;

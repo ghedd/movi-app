@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import "./styles.scss";
 import { truncateText } from "../../utils/functions";
+import { useHistory } from "react-router-dom";
 
 interface MediaItemProps {
 	mediaTitle?: string;
@@ -13,8 +14,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
 	...otherProps
 }: MediaItemProps) => {
 	/* ----------------- TODO ---------------- */
-	// [ ] create dynamic translateX to left/right
-	// 		most elements on hover
+	// [x] create dynamic translateX to left/right
+	// 		most elements on hover (NOTE partly done)
+	// [ ] remove unneccesary code
 	/* --------------------------------------- */
 
 	const [isRightMost, setIsRightMost] = useState<boolean | undefined>(
@@ -22,6 +24,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
 	);
 	const [isLeftMost, setIsLeftMost] = useState<boolean | undefined>(undefined);
 	const itemRef = useRef<HTMLDivElement>(null);
+	const history = useHistory();
+	const linkToMediaPage = "/item/tt1285016";
+
 	const checkForLeftOrRightMost = (): void => {
 		const parentRightBouding =
 			itemRef.current?.parentElement?.getBoundingClientRect().right || 0;
@@ -51,6 +56,10 @@ const MediaItem: React.FC<MediaItemProps> = ({
 		setIsLeftMost(undefined);
 		setIsRightMost(undefined);
 	};
+	const handleClick = (): void => {
+		// NOTE temporary
+		history.push(linkToMediaPage);
+	};
 	return (
 		<div
 			className={`${
@@ -63,6 +72,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
 				}, 200);
 			}}
 			onMouseLeave={() => resetHoverEffect()}
+			onClick={() => handleClick()}
 		>
 			<div className="mediaItem__poster">Poster</div>
 			<div className="mediaItem__brief">
