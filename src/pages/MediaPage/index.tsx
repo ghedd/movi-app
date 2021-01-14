@@ -5,6 +5,7 @@ import RatingRing from "../../components/RatingRing";
 import altPoster from "../../assets/alt_poster.png";
 import { useLocation } from "react-router-dom";
 import useItemFetcher from "../../hooks/useItemFetcher";
+// import MediaItem from "../../components/MediaItem";
 
 export interface MediaDetails {
 	Title: string;
@@ -91,7 +92,13 @@ const MediaPage: React.FC<QueryProp> = ({ query }: QueryProp) => {
 						<span className="details__year">{data.Year}</span>
 					</div>
 					<div className="details__nominationStatus">
-						<ButtonAddToNominationList />
+						<ButtonAddToNominationList
+							item={{
+								imdbID: data.imdbID,
+								mediaTitle: data.Title,
+								mediaPlot: data.Plot,
+							}}
+						/>
 						<span>this item is/isnt in your Nomination list</span>
 					</div>
 				</div>

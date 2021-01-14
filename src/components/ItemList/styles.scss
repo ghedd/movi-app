@@ -27,7 +27,8 @@
 		/* --------------------------------------- */
 		// overflow-y: visible;
 		height: 100%;
-		width: auto;
+		// width: 100%;
+		min-width: 100%;
 		background-position: top, bottom;
 		background-repeat: repeat-x;
 		display: flex;
@@ -36,13 +37,13 @@
 
 		.slider {
 			/* ----------- hide scroll bar ----------- */
-			
+
 			&::-webkit-scrollbar {
 				display: none;
 			}
 			-ms-overflow-style: none; /* IE and Edge */
 			scrollbar-width: none; /* Firefox */
-			overflow-x: scroll;
+			overflow-x: auto;
 			/* --------------------------------------- */
 			// overflow-y: visible;
 			// position: relative;
@@ -54,7 +55,7 @@
 			// grid-template-columns: repeat(auto-fill);
 			align-items: center;
 			padding: 5rem 0;
-			min-width: 300px;
+			min-width: max-content;
 			/* ----------- scroll behavior ----------- */
 			scroll-snap-type: x proximity;
 			scroll-behavior: smooth;

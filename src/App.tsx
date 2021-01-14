@@ -10,21 +10,23 @@ import MediaPage from "./pages/MediaPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { NominationListPropsProvider } from "./context/nominationList.context";
 
 const App: React.FC = () => {
-
 	return (
-		<Router>
-			<Header />
-			<Switch>
-				<Route exact path="/" component={HomePage} />
-				<Route exact path="/search/:keyword" component={SearchPage} />
-				<Route exact path="/item/:id" component={MediaPage} />
-				<Route exact path="/profile" component={ProfilePage} />
-				<Route exact path="/registration" component={RegistrationPage} />
-			</Switch>
-			<Footer />
-		</Router>
+		<NominationListPropsProvider>
+			<Router>
+				<Header />
+				<Switch>
+					<Route exact path="/" component={HomePage} />
+					<Route exact path="/search/:keyword" component={SearchPage} />
+					<Route exact path="/item/:id" component={MediaPage} />
+					<Route exact path="/profile" component={ProfilePage} />
+					<Route exact path="/registration" component={RegistrationPage} />
+				</Switch>
+				<Footer />
+			</Router>
+		</NominationListPropsProvider>
 	);
 };
 

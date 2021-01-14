@@ -2,12 +2,13 @@ import React, { useRef, useState } from "react";
 import "./styles.scss";
 import { truncateText } from "../../utils/functions";
 import { useHistory } from "react-router-dom";
-
-interface MediaItemProps {
+import ButtonAddToNominationList from "../ButtonAddToNominationList";
+export interface MediaItemProps {
 	mediaTitle?: string;
 	mediaYearOfProd?: string;
 	mediaPlot?: string;
-	imdbID?: string;
+	imdbID: string;
+	mediaPoster?: string;
 }
 const MediaItem: React.FC<MediaItemProps> = ({
 	mediaTitle,
@@ -24,7 +25,9 @@ const MediaItem: React.FC<MediaItemProps> = ({
 	);
 	const [isLeftMost, setIsLeftMost] = useState<boolean | undefined>(undefined);
 	const itemRef = useRef<HTMLDivElement>(null);
+	// const [item, setItem] = useState({});
 	const history = useHistory();
+
 	const linkToMediaPage = "/item/tt1285016";
 
 	const checkForLeftOrRightMost = (): void => {
@@ -50,15 +53,26 @@ const MediaItem: React.FC<MediaItemProps> = ({
 
 	const longTitle =
 		"Night of the Day of the Dawn of the Son of the Bride of the Return of the Revenge of the Terror of the Attack of the Evil, Mutant, Alien, Flesh Eating, Hellbound, Zombified Living Dead";
-	const loremIpsum =
-		"Lorem isplot dolor sit amet consectetur adipisicing elit. Autem, possimus? Quaerat cupiditate officiis reprehenderit ut?";
+	// const loremIpsum =
+	// 	"Lorem isplot dolor sit amet consectetur adipisicing elit. Autem, possimus? Quaerat cupiditate officiis reprehenderit ut?";
 	const resetHoverEffect = (): void => {
 		setIsLeftMost(undefined);
 		setIsRightMost(undefined);
 	};
+
+	const fuckingItem: MediaItemProps = {
+		mediaTitle,
+		imdbID: otherProps.imdbID,
+		mediaPlot: otherProps.mediaPlot,
+		mediaYearOfProd: otherProps.mediaYearOfProd,
+		mediaPoster: otherProps.mediaPoster,
+	};
+
 	const handleClick = (): void => {
 		// NOTE temporary
-		history.push(linkToMediaPage);
+		// history.push( linkToMediaPage );
+		console.log(linkToMediaPage);
+		console.log(history);
 	};
 	return (
 		<div
@@ -72,9 +86,13 @@ const MediaItem: React.FC<MediaItemProps> = ({
 				}, 200);
 			}}
 			onMouseLeave={() => resetHoverEffect()}
-			onClick={() => handleClick()}
 		>
-			<div className="mediaItem__poster">Poster</div>
+			<div
+				className="mediaItem__poster"
+				style={{ backgroundImage: `url(${otherProps.mediaPoster})` }}
+				onClick={() => handleClick()}
+			></div>
+			<ButtonAddToNominationList item={fuckingItem} />
 			<div className="mediaItem__brief">
 				<span className="mediaItem__brief__title  fontMediaItem__title">
 					{truncateText(mediaTitle, 50) || truncateText(longTitle, 40)}
@@ -82,10 +100,11 @@ const MediaItem: React.FC<MediaItemProps> = ({
 				<span className="mediaItem__brief__year fontMediaItem__year">
 					{otherProps.mediaYearOfProd || `20xx`}
 				</span>
-				<p className="mediaItem__brief__plot fontMediaItem__plot">
+
+				{/* <p className="mediaItem__brief__plot fontMediaItem__plot">
 					{truncateText(otherProps.mediaPlot, 80) ||
 						truncateText(loremIpsum, 80)}
-				</p>
+				</p> */}
 			</div>
 		</div>
 	);

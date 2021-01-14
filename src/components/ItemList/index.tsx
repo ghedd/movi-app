@@ -2,20 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import "./styles.scss";
 
 import bgrBorder from "./../../assets/film-roll-border.svg";
-import MediaItem from "../MediaItem";
+import MediaItem, { MediaItemProps } from "../MediaItem";
 
 import { ReactComponent as IconNext } from "../../assets/icon_next.svg";
 import { ReactComponent as IconPrev } from "../../assets/icon_prev.svg";
 
 interface ListProps {
-	mediaList?: MediaItemProps[];
-}
-
-interface MediaItemProps {
-	mediaTitle?: string;
-	mediaYearOfProd?: string;
-	mediaPlot?: string;
-	imdbID?: string;
+	mediaList: MediaItemProps[];
 }
 
 const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
@@ -30,6 +23,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 	// const [hasOverflow, setHasOverFlow] = useState(false);
 	const [canScrollLeft, setCanScrollLeft] = useState(false);
 	const [canScrollRight, setCanScrollRight] = useState(false);
+	const [hasOverFlow, setHasOverFlow] = useState(true);
 	const sliderRef = useRef<HTMLDivElement>(null);
 
 	const checkForScrollPosition = (): void => {
@@ -40,13 +34,13 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 		}
 	};
 
-	/* 	const checkForOverflow = (): void => {
+	const checkForOverflow = (): void => {
 		if (sliderRef.current !== null) {
 			const { scrollWidth, clientWidth } = sliderRef.current;
 			const hasOverflow = scrollWidth > clientWidth;
 			setHasOverFlow(hasOverflow);
 		}
-	}; */
+	};
 	const handleScroll = (direction: string): void => {
 		if (sliderRef.current !== null) {
 			const { clientWidth } = sliderRef.current;
@@ -69,7 +63,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 			<>
 				<button
 					className={`${
-						canScrollLeft ? "" : "sliderControl--disabled"
+						hasOverFlow && canScrollLeft ? "" : "sliderControl--disabled"
 					} sliderControl sliderControl--prev`}
 					disabled={!canScrollLeft}
 					onClick={() => handleScroll("left")}
@@ -78,7 +72,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 				</button>
 				<button
 					className={`${
-						canScrollRight ? "" : "sliderControl--disabled"
+						hasOverFlow && canScrollRight ? "" : "sliderControl--disabled"
 					} sliderControl sliderControl--next`}
 					disabled={!canScrollRight}
 					onClick={() => handleScroll("right")}
@@ -114,13 +108,21 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 	};
 
 	useEffect(() => {
-		console.log(sliderRef.current);
+		// console.log(sliderRef.current);
+		window.addEventListener("resize", () => {
+			checkForOverflow();
+		});
 		// checkForOverflow();
 		checkForScrollPosition();
 		console.log(
-			`Overflow? , 
+			`Overflow? ${hasOverFlow} , 
 			Scroll left? ${canScrollLeft}, Scroll right? ${canScrollRight}`
 		);
+		return () => {
+			window.removeEventListener("resize", () => {
+				checkForOverflow();
+			});
+		};
 	}, [
 		// hasOverflow,
 		canScrollLeft,

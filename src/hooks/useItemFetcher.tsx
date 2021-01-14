@@ -5,7 +5,7 @@ import api from "../utils/axios/api";
 const useItemFetcher = (queryID: string): any => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState("");
-	const [data, setData] = useState<MediaDetails>(Object);
+	const [data, setData] = useState<MediaDetails>({} as MediaDetails);
 
 	const getMediaItem = async () => {
 		await api

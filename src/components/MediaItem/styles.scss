@@ -1,3 +1,4 @@
+@import "../../utils/styles/variables.scss";
 @import "../../utils/styles/mixins.scss";
 .mediaItem {
 	// grid-row: 1/-1;
@@ -13,6 +14,8 @@
 	&__poster {
 		border-radius: 10px;
 		background: #e9e62d;
+		background-repeat: no-repeat;
+		background-position: top center;
 		/* background: linear-gradient(
 			115.87deg,
 			rgb(54, 114, 248) 0%,
@@ -21,11 +24,9 @@
 	}
 	&__brief {
 		padding: 0 0.5rem;
-		border-radius: 10px;
-		height: 100%;
+		border-radius: 0 0 10px 10px;
 		flex-direction: column;
 		justify-content: center;
-		height: 50%;
 		display: none;
 		@media screen and (min-width: 960px) {
 			display: flex;
@@ -41,16 +42,17 @@
 		&__year {
 			font-size: 16px !important;
 		}
-		&__plot {
+		/* 	&__plot {
 			font-size: 16px;
 			line-height: 1.5;
-		}
+		} */
 	}
 }
 
 /* ------------- positioning ------------- */
 
 .mediaItem {
+	z-index: 0;
 	position: relative;
 	&__poster {
 		position: absolute;
@@ -80,14 +82,15 @@
 	&__brief {
 		opacity: 0;
 		transition: 400ms ease-out;
-		@include bgrOverlayMainTheme(0.5, 0.5);
+		// @include bgrOverlayMainTheme(1, 1);
+		background-color: $clrBgrPrimary;
 	}
 	&:hover {
 		// height: 35vh;
 		// width: 150%;
 		transform: scale(1.2);
 		z-index: 2;
-		@include shadowRaisedSpread;
+		// @include shadowRaisedSpread;
 
 		.mediaItem__brief {
 			@keyframes fadeIn {
@@ -98,7 +101,7 @@
 					opacity: 0.5;
 				}
 				100% {
-					opacity: 1;
+					opacity: 0.9;
 				}
 			}
 			animation: fadeIn 400ms ease forwards;
@@ -106,7 +109,7 @@
 
 			// opacity: 1;
 			& > * {
-				transform: scale(0.95);
+				transform: scale(0.85);
 			}
 		}
 	}
@@ -123,6 +126,17 @@
 	}
 }
 
-.mediaItem {
+.mediaItem__poster {
 	cursor: pointer;
+}
+
+.mediaItem {
+	.addNominationBtn {
+		// opacity: 1;
+		path {
+			opacity: 0.9;
+		}
+		justify-self: flex-end;
+		align-self: flex-end;
+	}
 }

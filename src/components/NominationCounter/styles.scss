@@ -1,0 +1,10 @@
+.nominationCounter {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	&__icon {
+		height: clamp(25px, 5vw, 30px);
+		width: auto;
+		margin-right: clamp(0.2rem, 5vw, 0.4rem);
+	}
+}
