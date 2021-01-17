@@ -1,0 +1,48 @@
+@import "../../utils/styles/variables.scss";
+@import "../../utils/styles/mixins.scss";
+.regFormCard {
+	background-color: $clrBgrSecondary;
+	padding: 2rem 1rem;
+	border-radius: 10px;
+}
+
+.regForm {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__subtitle {
+		margin-bottom: 1.5rem;
+		width: 80%;
+		text-align: center;
+	}
+	&__label {
+		margin-top: 1rem;
+		margin-bottom: 0.5rem;
+		font-weight: bold;
+	}
+	&__input {
+		width: 80%;
+		border-radius: 10px;
+		border: 1px solid transparent;
+		padding: 0.4rem 1rem;
+		&:focus {
+			outline: none;
+			box-shadow: 0 0 0 0.2rem $clrSecondary1;
+		}
+	}
+	&__btn {
+		// TODO
+		// duplicated code,
+		// need refactoring
+		/* -------------------- */
+		width: 40%;
+		min-width: 150px;
+		@include bgrOverlayMainTheme(1, 1);
+		border-radius: 25px !important;
+		border: 1px solid transparent;
+		padding: 0.5rem 1.5rem;
+		margin-top: 1.5rem;
+	}
+}

@@ -27,7 +27,7 @@ const App: React.FC = () => {
 					<Route exact path="/search/:keyword" component={SearchPage} />
 					<Route exact path="/item/:id" component={MediaPage} />
 					<Route exact path="/profile" component={ProfilePage} />
-					<Route exact path="/registration" component={RegistrationPage} />
+					<Route exact path="/sign-in" component={RegistrationPage} />
 					<Redirect to="/" />
 				</Switch>
 				<Footer />

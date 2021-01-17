@@ -1,0 +1,90 @@
+@import "../../utils/styles/variables.scss";
+@import "../../utils/styles/mixins.scss";
+@import "../../components/HeroSection/styles.scss";
+
+.regPage {
+	&__deco {
+		height: 20vh;
+		min-height: 150px;
+	}
+
+	&__formWrapper {
+		margin-top: 2rem !important;
+		width: 80%;
+		min-width: 300px;
+		@include mainContainer();
+		display: grid;
+		// grid-template-columns: repeat(auto-fit, minmax(300px, auto));
+		grid-template-columns: 1fr;
+		gap: 2rem;
+
+		.regPage__formDivider {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-weight: 700;
+			font-family: "Open Sans Condensed";
+			font-size: clamp(16px, 5vw, 20px);
+			position: relative;
+			z-index: 2;
+			// background: $clrBgrPrimary;
+			&::before {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%);
+				background-color: $clrBgrPrimary;
+				width: 50px;
+				height: 50px;
+				z-index: -1;
+			}
+			&::after {
+				content: "";
+				position: absolute;
+				top: 50%;
+				left: 0;
+				transform: translateY(-50%);
+				height: 2px;
+				width: 100%;
+
+				background: $clrGradientPrimary;
+				z-index: -2;
+			}
+		}
+		@media screen and (min-width: 960px) {
+			width: calc(100% - 2rem);
+			grid-template-columns: minmax(300px, 1fr) minmax(10vw, auto) minmax(
+					300px,
+					1fr
+				);
+			gap: 2rem;
+			.regFom {
+				&__signIn {
+					grid-column: 1/2;
+				}
+				&__signUp {
+					grid-column: 3/4;
+				}
+			}
+			.regPage__formDivider {
+				grid-column: 2/3;
+				&::before {
+					width: 50%;
+					height: 20%;
+				}
+				&::after {
+					top: 0;
+					left: 50%;
+					transform: translateX(-50%);
+					width: 2px;
+					height: 100%;
+				}
+			}
+		}
+		padding: 2rem 0;
+	}
+}
+.backgroundImage {
+	@extend .backgroundImage;
+}

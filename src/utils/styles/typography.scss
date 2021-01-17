@@ -96,3 +96,15 @@ body > * {
 		line-height: 1.8;
 	}
 }
+
+// forms
+.fontRegForm {
+	&__title {
+		@extend .fontMediaSection;
+		padding-left: 0;
+	}
+	&__subtitle {
+		@extend .fontHero__subtitle;
+		font-size: clamp(14px, 5vw, 16px);
+	}
+}

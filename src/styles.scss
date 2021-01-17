@@ -20,6 +20,7 @@ p {
 	box-sizing: border-box;
 	text-transform: capitalize;
 	color: $clrPrimary1;
+	background-color: $clrBgrSecondary;
 	padding: 0.2rem 1rem;
 	&--secondary {
 		background-color: transparent !important;
