@@ -46,6 +46,13 @@
 
 		&__title {
 			margin-top: $marginFluidMed;
+			a {
+				text-decoration: none;
+				color: $clrPrimary1;
+				&:visited {
+					color: $clrSecondary1;
+				}
+			}
 		}
 		&__year {
 			margin-bottom: $marginFluidMed;

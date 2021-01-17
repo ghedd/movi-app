@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
 import { MediaDetails } from "../pages/MediaPage";
-import api from "../utils/axios/api";
+import { api } from "../utils/axios/api";
 
-const useItemFetcher = (queryID: string): any => {
+interface ItemFetchProps {
+	isLoading: boolean;
+	data: MediaDetails;
+	error: string;
+}
+
+const useItemFetcher = (queryID: string): ItemFetchProps => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [data, setData] = useState<MediaDetails>({} as MediaDetails);
 
-	const getMediaItem = async () => {
-		await api
+	const getMediaItem = () => {
+		api
 			.get("/", {
 				params: {
 					i: `${queryID}`,

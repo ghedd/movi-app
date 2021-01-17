@@ -3,8 +3,10 @@ import "./styles.scss";
 import ButtonAddToNominationList from "../../components/ButtonAddToNominationList";
 import RatingRing from "../../components/RatingRing";
 import altPoster from "../../assets/alt_poster.png";
-import { useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import useItemFetcher from "../../hooks/useItemFetcher";
+import { getLastSecment } from "../../utils/functions";
+import { UNAVAILABLE } from "../../utils/constants";
 // import MediaItem from "../../components/MediaItem";
 
 export interface MediaDetails {
@@ -42,9 +44,10 @@ interface Rating {
 	Value: string;
 }
 const MediaPage: React.FC<QueryProp> = ({ query }: QueryProp) => {
-	const location = useLocation().pathname;
-	const localQuery = location.substring(location.lastIndexOf("/") + 1);
-	const { data, isLoading } = !query
+	const { pathname } = useLocation();
+	const localQuery = getLastSecment(pathname);
+
+	const { data, isLoading, error } = !query
 		? useItemFetcher(localQuery)
 		: useItemFetcher(query);
 	const ratings: Rating[] = data.Ratings;
@@ -59,17 +62,21 @@ const MediaPage: React.FC<QueryProp> = ({ query }: QueryProp) => {
 				<h1>Loading...</h1>
 			</main>
 		);
+	if (error !== "") return <Redirect to="/404" />;
 	return (
 		<main className="page mediaPage">
 			<div className="mediaPage__topDeco" />
 			<div className="mediaPage__details">
 				<div className="headlinesWrapper">
 					<div className="details__poster">
-						<img
-							src={data.Poster !== "N/A" ? data.Poster : altPoster}
-							alt="poster"
-							loading="lazy"
-						/>
+						<picture>
+							<source srcSet={altPoster} />
+							<img
+								src={data.Poster !== UNAVAILABLE ? data.Poster : altPoster}
+								alt="poster"
+								loading="lazy"
+							/>
+						</picture>
 					</div>
 					<div className="details__ratings">
 						{ratings && ratings.length !== 0 ? (
@@ -96,14 +103,19 @@ const MediaPage: React.FC<QueryProp> = ({ query }: QueryProp) => {
 							item={{
 								imdbID: data.imdbID,
 								mediaTitle: data.Title,
-								mediaPlot: data.Plot,
+								mediaYearOfProd: data.Year,
+								mediaPoster: data.Poster,
 							}}
 						/>
 						<span>this item is/isnt in your Nomination list</span>
 					</div>
 				</div>
 				<div className="contentsWrapper">
-					<p className="details__plot fontMediaPage__plot">{data.Plot}</p>
+					<p className="details__plot fontMediaPage__plot">
+						{data.Plot !== UNAVAILABLE
+							? data.Plot
+							: `Looks like the plot of this ${data.Type} is so straighforward that everyone can guess...`}
+					</p>
 
 					<div className="details__otherInfo__short">
 						<span className="fontMediaPage__infoLabel">Rated</span>

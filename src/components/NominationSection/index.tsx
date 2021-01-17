@@ -6,11 +6,11 @@ import { NominationListCtx } from "../../context/nominationList.context";
 // NOTE this is temporary data only
 
 const NominationSection: React.FC = () => {
-	const { items } = useContext(NominationListCtx);
+	const { items, count } = useContext(NominationListCtx);
 	return (
 		<div className="mediaSection">
 			<h2 className="mediaSectionList fontMediaSection">
-				your nomination list
+				your nomination list - {count}/5
 			</h2>
 			<ItemList mediaList={items} />
 		</div>

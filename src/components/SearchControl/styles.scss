@@ -1,0 +1,30 @@
+@import "../../utils/styles/variables.scss";
+@import "../../utils/styles/mixins.scss";
+
+.searchControl {
+	@include mainContainer;
+	max-width: 400px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-bottom: 2.5rem;
+	.btnSearchControl {
+		background-color: $clrBgrSecondary;
+		padding: 0.5rem 1.5rem;
+
+		border-radius: 25px !important;
+		border: 1px solid transparent;
+		&--isLoading {
+			cursor: not-allowed;
+		}
+	}
+}
+.btnBackToTop {
+	margin-left: 1rem;
+}
+.moreResults {
+	text-transform: capitalize;
+	color: $clrPrimary1;
+}
+
+@include loadingDots();

@@ -8,10 +8,18 @@
 		height: 20vh;
 		min-height: 150px;
 	}
-	.searchBarWrapper {
+	.searchBarWrapper,
+	.searchResultsWrapper {
 		@include mainContainer();
 		display: flex;
 	}
+	.searchResultsWrapper {
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		padding-bottom: 2.5rem;
+	}
+
 	.searchBarWrapper {
 		position: relative;
 		width: calc(100% - 2rem);
@@ -30,7 +38,6 @@
 			max-width: 500px;
 		}
 	}
-
 }
 .backgroundImage {
 	@extend .backgroundImage;

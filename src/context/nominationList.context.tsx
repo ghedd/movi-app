@@ -41,8 +41,10 @@ export const NominationListPropsProvider: React.FC<Props> = ({
 		const dup = duplicateCheck(items, item);
 		if (dup.length === 0) {
 			setItems([...items, item]);
-			if (count === 5) return;
 			setCount(count + 1);
+			if (count === 5) {
+				setItems([...items]);
+			}
 		}
 	};
 	console.log("item: " + items);

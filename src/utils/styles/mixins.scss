@@ -19,3 +19,57 @@
 	box-shadow: 0px 30px 60px 0px rgba(0, 0, 0, $shadowOpacity);
 }
 
+@mixin loadingDots($size: 1rem) {
+	.loadingDots {
+		min-width: 100px;
+		margin: 0 auto;
+		// min-width: 150px;
+		.loadingDot {
+			height: $size;
+			width: $size;
+			background-color: $clrSecondary1;
+			border-radius: 100%;
+			display: inline-block;
+			-webkit-animation: bouncingDot 800ms infinite ease-in-out both;
+			animation: bouncingDot 800ms infinite ease-in-out both;
+		}
+
+		$colors: ("1" #694ffb, "2" #8f35fd, "3" #ae1fff);
+		@each $num, $clr in $colors {
+			.loadingDot--#{$num} {
+				background-color: $clr;
+			}
+		}
+
+		@for $i from 1 through 3 {
+			.loadingDot--#{$i} {
+				animation-delay: 160ms * $i;
+				-webkit-animation-delay: 160ms * $i;
+			}
+		}
+
+		@-webkit-keyframes bouncingDot {
+			0%,
+			80%,
+			100% {
+				-webkit-transform: scale(0);
+			}
+			40% {
+				-webkit-transform: scale(1);
+			}
+		}
+
+		@keyframes bouncingDot {
+			0%,
+			80%,
+			100% {
+				-webkit-transform: scale(0);
+				transform: scale(0);
+			}
+			40% {
+				-webkit-transform: scale(1);
+				transform: scale(1);
+			}
+		}
+	}
+}

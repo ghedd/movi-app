@@ -1,11 +1,24 @@
 import React from "react";
 import "./styles.scss";
 import SearchItem from "../SearchItem";
+import { SearchedItemProps } from "../../hooks/useSeachFetcher";
 
-const SearchList: React.FC = () => {
+interface SearchList {
+	searchedItems: SearchedItemProps[];
+}
+const SearchList: React.FC<SearchList> = ({ searchedItems }: SearchList) => {
 	return (
 		<div className="searchList">
-			<SearchItem />
+			{searchedItems.map(
+				({ Title, imdbID, ...otherProps }: SearchedItemProps) => (
+					<SearchItem
+						key={imdbID}
+						Title={Title}
+						imdbID={imdbID}
+						{...otherProps}
+					/>
+				)
+			)}
 		</div>
 	);
 };

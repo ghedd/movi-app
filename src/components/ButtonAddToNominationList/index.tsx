@@ -1,41 +1,9 @@
-import React, {
-	useState,
-	// useReducer
-	useContext,
-	useEffect,
-} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./styles.scss";
 
 import { ReactComponent as AwardIcon } from "../../assets/icon_add-nomination.svg";
 import { NominationListCtx } from "../../context/nominationList.context";
 import { MediaItemProps } from "../MediaItem";
-// export const ACTIONS = {
-// 	ADD_TO_LIST: "adding",
-// 	REMOVE_FROM_LIST: "removing",
-// };
-
-// const LIST_MAX = 5;
-// const LIST_MIN = 0;
-// // const LIMIT_ADDING = "limitAdding";
-// const initialState = {
-// 	count: 0,
-// 	isFull: false,
-// };
-
-// const nominationListReducer = (state: any, action: any) => {
-// 	switch (action.type) {
-// 		case ACTIONS.ADD_TO_LIST:
-// 			return state.count === LIST_MAX
-// 				? { ...state, isFull: true }
-// 				: { ...state, count: state.count + 1 };
-// 		case ACTIONS.REMOVE_FROM_LIST:
-// 			return state.count === LIST_MIN
-// 				? { isFull: false, count: 0 }
-// 				: { ...state, count: state.count - 1 };
-// 		default:
-// 			return state;
-// 	}
-// };
 
 interface BtnAddListProps {
 	item: MediaItemProps;
@@ -48,8 +16,7 @@ const ButtonAddToNominationList: React.FC<BtnAddListProps> = ({
 	// [ ] create optional flexible tooltip
 	/* --------------------------------------- */
 	const [isAdded, setIsAdded] = useState<boolean>(false);
-
-	// const [state, dispatch] = useReducer(nominationListReducer, initialState);
+	// const [currItem, setCurrItem] = useState({});
 
 	const {
 		items,
@@ -57,34 +24,49 @@ const ButtonAddToNominationList: React.FC<BtnAddListProps> = ({
 		removeItemFromNominationList,
 	} = useContext(NominationListCtx);
 
-	const duplicateCheck = (
+	/* --------------- methods --------------- */
+	const checkCurrItemInNomList = (
 		itemArray: MediaItemProps[],
 		curItem: MediaItemProps
-	) => {
+	): boolean => {
+		// this method checks if current item
+		// is in nomination list
 		const dup = itemArray.filter((item) => {
 			return item.imdbID === curItem.imdbID;
 		});
-		return dup;
+		if (dup.length !== 0) {
+			return true;
+		} else {
+			return false;
+		}
 	};
 
 	const handleToggle = (): void => {
 		setIsAdded(!isAdded);
-		// console.log(isAdded);
+
 		isAdded
 			? removeItemFromNominationList(item.imdbID)
 			: addItemToNominationList(item);
 	};
+	/* --------------------------------------- */
 
 	useEffect(() => {
-		const dup = duplicateCheck(items, item);
-		if (dup.length !== 0) setIsAdded(true);
-	}, [isAdded]);
+		const nomListHasCurrItem = checkCurrItemInNomList(items, item);
+		if (nomListHasCurrItem) {
+			setIsAdded(true);
+		} else {
+			setIsAdded(false);
+		}
+	}, [isAdded, items]);
 	return (
 		<button
-			className="btn addNominationBtn"
+			className={`${
+				items.length === 5 && !isAdded ? "addNominationBtn--disabled" : ""
+			} btn addNominationBtn`}
 			type="button"
 			aria-label="Add to my nomination list"
 			onClick={() => handleToggle()}
+			disabled={items.length === 5 && !isAdded}
 		>
 			<AwardIcon
 				className={` addNominationBtn__icon ${

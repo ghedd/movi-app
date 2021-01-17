@@ -1,7 +1,12 @@
 //utils
 import React from "react";
 import "./styles.scss";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	Redirect,
+	Route,
+	Switch,
+} from "react-router-dom";
 // child components
 import HomePage from "./pages/HomePage/index";
 import SearchPage from "./pages/SearchPage";
@@ -23,6 +28,7 @@ const App: React.FC = () => {
 					<Route exact path="/item/:id" component={MediaPage} />
 					<Route exact path="/profile" component={ProfilePage} />
 					<Route exact path="/registration" component={RegistrationPage} />
+					<Redirect to="/" />
 				</Switch>
 				<Footer />
 			</Router>

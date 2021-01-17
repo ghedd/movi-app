@@ -55,7 +55,7 @@
 			// grid-template-columns: repeat(auto-fill);
 			align-items: center;
 			padding: 5rem 0;
-			min-width: max-content;
+			min-width: 300px;
 			/* ----------- scroll behavior ----------- */
 			scroll-snap-type: x proximity;
 			scroll-behavior: smooth;
@@ -65,11 +65,11 @@
 
 .sliderControl {
 	cursor: pointer;
-	height: 80%;
+	height: 20%;
 	min-height: 60px;
 	width: auto;
 	max-width: 60px;
-	background: rgba(0, 0, 0, 0.15);
+	background: rgba(0, 0, 0, 0.45);
 	border: 1px solid transparent;
 
 	transform: translateY(-50%);
@@ -80,7 +80,7 @@
 		background-repeat: no-repeat;
 		background-position: center;
 		width: clamp(5px, 5vw, 30px);
-		opacity: 0.5;
+		opacity: 0.7;
 		height: auto;
 		// background: white;
 	}

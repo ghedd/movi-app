@@ -9,3 +9,9 @@ export const truncateText = (
 	const outputText = truncatedText + ellipsis;
 	return outputText;
 };
+
+export const getLastSecment = (stringURL: string): string => {
+	// return the last secment of a url
+	const lastSecment = stringURL.substring(stringURL.lastIndexOf("/") + 1);
+	return lastSecment;
+};
