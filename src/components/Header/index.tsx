@@ -17,7 +17,7 @@ const Header: React.FC = () => {
 				</div>
 				<ul className="navList">
 					<NominationCounter />
-					<li className="navItem">
+					<li className="navItem fontNavItem">
 						{currUser ? (
 							<span style={{ cursor: "pointer" }} onClick={() => logOut()}>
 								Sign Out

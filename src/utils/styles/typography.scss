@@ -111,3 +111,11 @@ body > * {
 		font-size: clamp(14px, 5vw, 16px);
 	}
 }
+
+// navs
+.fontNavItem > * {
+	font-family: "Open Sans Condensed";
+	font-weight: 700;
+	font-size: clamp(16px, 5vw, 18px);
+	text-decoration: none;
+}
