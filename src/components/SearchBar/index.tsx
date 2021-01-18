@@ -49,7 +49,14 @@ const SearchBar: React.FC<SearchProps> = ({ getSearchQuery }: SearchProps) => {
 				onChange={handleChange}
 				onKeyPress={handleEnterKeyPressed}
 			/>
-			<button className="btn searchBar__btn" aria-label="search">
+			<button
+				className="btn searchBar__btn"
+				aria-label="search"
+				onClick={() => {
+					getSearchQuery && getSearchQuery(queryString);
+					history.push(`/search/${queryString}`);
+				}}
+			>
 				<span
 					className="searchIcon"
 					style={{ backgroundImage: `url(${SearchIcon})` }}
