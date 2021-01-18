@@ -70,12 +70,12 @@ const MediaPage: React.FC<QueryProp> = ({ query }: QueryProp) => {
 				<div className="headlinesWrapper">
 					<div className="details__poster">
 						<picture>
-							<source srcSet={altPoster} />
 							<img
 								src={data.Poster !== UNAVAILABLE ? data.Poster : altPoster}
 								alt="poster"
 								loading="lazy"
 							/>
+							<source srcSet={altPoster} />
 						</picture>
 					</div>
 					<div className="details__ratings">

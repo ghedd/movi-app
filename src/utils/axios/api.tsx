@@ -6,5 +6,6 @@ export const api = axios.create({
 	responseType: "json",
 	params: {
 		apikey: API_KEY,
+		type: "movie",
 	},
 });
