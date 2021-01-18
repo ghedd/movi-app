@@ -14,6 +14,7 @@ interface CollectionFetchProps {
 	data: SearchedItemProps[];
 	isLoading: boolean;
 	error: string;
+	totalResults: number;
 	maxPageNum: number;
 }
 
@@ -24,7 +25,7 @@ const useSearchFetcher = (
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState("");
 	const [data, setData] = useState<SearchedItemProps[]>([]);
-	// const [totalResults, setTotalResults] = useState(0);
+	const [totalResults, setTotalResults] = useState(0);
 	const [maxPageNum, setMaxPageNum] = useState(1);
 	const ITEM_PER_PAGE = 10;
 	// const [pageNum, setPageNum] = useState(pageNumber);
@@ -46,6 +47,7 @@ const useSearchFetcher = (
 					setError(r.data.Error);
 					return;
 				}
+				setTotalResults(r.data.totalResults);
 				setMaxPageNum(Math.ceil(r.data.totalResults / ITEM_PER_PAGE));
 				setData((prevData) => {
 					return [
@@ -71,7 +73,7 @@ const useSearchFetcher = (
 		getSearchedMediaItems();
 	}, [query, pageNumber]);
 
-	return { isLoading, data, error, maxPageNum };
+	return { isLoading, data, error, maxPageNum, totalResults };
 };
 
 export default useSearchFetcher;

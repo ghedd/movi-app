@@ -23,7 +23,7 @@ const SearchPage: React.FC = () => {
 	const getSearchQuery = (query: string) => {
 		setSearchQuery(query);
 	};
-	const { data, error, maxPageNum, isLoading } = useSearchFetcher(
+	const { data, error, maxPageNum, totalResults, isLoading } = useSearchFetcher(
 		searchQuery,
 		pageNum
 	);
@@ -48,13 +48,19 @@ const SearchPage: React.FC = () => {
 				<SearchBar getSearchQuery={getSearchQuery} />
 			</div>
 			<div className="searchResultsWrapper">
+				{totalResults ? (
+					<span className="resultStatus">
+						Found <strong>{totalResults}</strong> result(s) for{" "}
+						<span style={{ fontWeight: 700 }}>&quot;{searchQuery}&quot;</span>
+					</span>
+				) : null}
 				{error !== "" ? (
-					<span>{error}</span>
+					<span className="resultStatus">{error}</span>
 				) : (
 					<SearchList searchedItems={data} />
 				)}
-				{error !== "" || pageNum === maxPageNum ? (
-					<span>End of results</span>
+				{error !== "" || (pageNum === maxPageNum && !isLoading) ? (
+					<span className="resultStatus">End of results</span>
 				) : (
 					<SearchControl isLoading={isLoading} moreResults={moreResults} />
 				)}
