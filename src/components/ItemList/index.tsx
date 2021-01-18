@@ -6,12 +6,15 @@ import MediaItem, { MediaItemProps } from "../MediaItem";
 
 import { ReactComponent as IconNext } from "../../assets/icon_next.svg";
 import { ReactComponent as IconPrev } from "../../assets/icon_prev.svg";
+import { useAuth } from "../../context/auth.context";
+import { Link } from "react-router-dom";
 
 interface ListProps {
 	mediaList: MediaItemProps[];
+	isBlank?: boolean;
 }
 
-const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
+const ItemList: React.FC<ListProps> = ({ mediaList, isBlank }: ListProps) => {
 	/* ----------------- TODO ---------------- */
 
 	// [x] style slider buttons
@@ -20,7 +23,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 	// 		interfaces
 	/* --------------------------------------- */
 
-	// const [hasOverflow, setHasOverFlow] = useState(false);
+	const { currUser } = useAuth();
 	const [canScrollLeft, setCanScrollLeft] = useState(false);
 	const [canScrollRight, setCanScrollRight] = useState(false);
 	const [hasOverFlow, setHasOverFlow] = useState(true);
@@ -82,7 +85,23 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 			</>
 		);
 	};
-
+	const buildBlankList = () => {
+		return (
+			<div className="blankList">
+				<div className="blankList__deco"></div>
+				{currUser ? (
+					<span className="blankList__status">
+						Decide a list of five nominees of your own!
+					</span>
+				) : (
+					<span className="blankList__status">
+						Decide a list of five nominees of your own. <br />
+						<Link to="/sign-in">Sign in</Link> to start now!
+					</span>
+				)}
+			</div>
+		);
+	};
 	const buildList = () => {
 		return (
 			<>
@@ -118,10 +137,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 				checkForOverflow();
 			});
 		};
-	}, [
-		canScrollLeft,
-		canScrollRight,
-	]);
+	}, [canScrollLeft, canScrollRight]);
 
 	/* -------- NOTE: component return -------- */
 
@@ -133,8 +149,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 					backgroundImage: `url(${bgrBorder}), url(${bgrBorder})`,
 				}}
 			>
-				{buildList()}
-				{sliderControls()}
+				{isBlank ? buildBlankList() : buildList()}
 			</div>
 		</div>
 	);
