@@ -108,23 +108,17 @@ const ItemList: React.FC<ListProps> = ({ mediaList }: ListProps) => {
 	};
 
 	useEffect(() => {
-		// console.log(sliderRef.current);
 		window.addEventListener("resize", () => {
 			checkForOverflow();
 		});
 		// checkForOverflow();
 		checkForScrollPosition();
-		console.log(
-			`Overflow? ${hasOverFlow} , 
-			Scroll left? ${canScrollLeft}, Scroll right? ${canScrollRight}`
-		);
 		return () => {
 			window.removeEventListener("resize", () => {
 				checkForOverflow();
 			});
 		};
 	}, [
-		// hasOverflow,
 		canScrollLeft,
 		canScrollRight,
 	]);
