@@ -4,7 +4,8 @@ import "./styles.scss";
 import { ReactComponent as AwardIcon } from "../../assets/icon_add-nomination.svg";
 import { NominationListCtx } from "../../context/nominationList.context";
 import { MediaItemProps } from "../MediaItem";
-
+import { useAuth } from "../../context/auth.context";
+import { useHistory } from "react-router-dom";
 interface BtnAddListProps {
 	item: MediaItemProps;
 }
@@ -16,8 +17,8 @@ const ButtonAddToNominationList: React.FC<BtnAddListProps> = ({
 	// [ ] create optional flexible tooltip
 	/* --------------------------------------- */
 	const [isAdded, setIsAdded] = useState<boolean>(false);
-	// const [currItem, setCurrItem] = useState({});
-
+	const history = useHistory();
+	const { currUser } = useAuth();
 	const {
 		items,
 		addItemToNominationList,
@@ -42,6 +43,8 @@ const ButtonAddToNominationList: React.FC<BtnAddListProps> = ({
 	};
 
 	const handleToggle = (): void => {
+		if (!currUser) return history.push("/sign-in");
+
 		setIsAdded(!isAdded);
 
 		isAdded

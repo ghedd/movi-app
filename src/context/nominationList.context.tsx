@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MediaItemProps } from "../components/MediaItem";
+import { useAuth } from "./auth.context";
 
 // NOTE: generic type props for
 // react children components
-type Props = {
+export type ContextProps = {
 	children?: React.ReactNode;
 	// [key: string]: any;
 };
 
 export interface NominationListCtxInterface {
 	count: number;
-	isFull: boolean;
+	// isFull: boolean;
 	items: MediaItemProps[];
 	addItemToNominationList: (item: any) => void;
 	removeItemFromNominationList: (imdbID: string) => void;
@@ -20,12 +21,19 @@ export const NominationListCtx = React.createContext(
 	{} as NominationListCtxInterface
 );
 
-export const NominationListPropsProvider: React.FC<Props> = ({
+export const NominationListPropsProvider: React.FC<ContextProps> = ({
 	children,
-}: Props) => {
-	const [count, setCount] = useState(0);
-	const [isFull] = useState(false);
-	const [items, setItems] = useState<MediaItemProps[]>([]);
+}: ContextProps) => {
+	const { currUser } = useAuth();
+	const localData = localStorage.getItem("nominationList");
+	const initState = localData && currUser ? JSON.parse(localData) : [];
+	const [count, setCount] = useState(initState.length);
+	// const [isFull] = useState(false);
+	const [items, setItems] = useState<MediaItemProps[]>(initState);
+
+	useEffect(() => {
+		localStorage.setItem("nominationList", JSON.stringify(items));
+	}, [items]);
 
 	const duplicateCheck = (
 		itemArray: MediaItemProps[],
@@ -57,11 +65,12 @@ export const NominationListPropsProvider: React.FC<Props> = ({
 		setItems(updatedItems);
 		setCount(count - 1);
 	};
+
 	return (
 		<NominationListCtx.Provider
 			value={{
 				count,
-				isFull,
+				// isFull,
 				items,
 				addItemToNominationList,
 				removeItemFromNominationList,

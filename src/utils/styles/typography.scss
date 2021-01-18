@@ -99,6 +99,9 @@ body > * {
 
 // forms
 .fontRegForm {
+	&__error {
+		color: red;
+	}
 	&__title {
 		@extend .fontMediaSection;
 		padding-left: 0;

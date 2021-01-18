@@ -17,6 +17,16 @@
 		width: 80%;
 		text-align: center;
 	}
+
+	&__error {
+		width: 80%;
+		display: block;
+		padding: 1rem 0.5rem;
+		background-color: rgb(46, 19, 19);
+		margin: 1.5rem auto;
+		border-radius: 10px;
+	}
+
 	&__label {
 		margin-top: 1rem;
 		margin-bottom: 0.5rem;

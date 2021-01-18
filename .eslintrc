@@ -3,6 +3,10 @@
   "plugins": [
     "@typescript-eslint"
   ],
+  "env": {
+    "node": true,
+    "commonjs": true
+  },
   "extends": [
     // "plugin:prettier/recommended",
     "eslint:recommended",
