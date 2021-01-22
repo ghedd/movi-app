@@ -7,6 +7,7 @@ import {
 	Route,
 	Switch,
 } from "react-router-dom";
+import LoadPageFromTop from "./utils/navigateToTop";
 // child components
 import HomePage from "./pages/HomePage/index";
 import SearchPage from "./pages/SearchPage";
@@ -15,6 +16,7 @@ import MediaPage from "./pages/MediaPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+
 // contexts
 import { NominationListPropsProvider } from "./context/nominationList.context";
 import { AuthProvider } from "./context/auth.context";
@@ -24,6 +26,7 @@ const App: React.FC = () => {
 		<AuthProvider>
 			<NominationListPropsProvider>
 				<Router>
+					<LoadPageFromTop />
 					<Header />
 					<Switch>
 						<Route exact path="/" component={HomePage} />

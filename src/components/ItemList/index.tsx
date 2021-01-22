@@ -11,10 +11,10 @@ import { Link } from "react-router-dom";
 
 interface ListProps {
 	mediaList: MediaItemProps[];
-	isBlank?: boolean;
+	isNLBlank?: boolean;
 }
 
-const ItemList: React.FC<ListProps> = ({ mediaList, isBlank }: ListProps) => {
+const ItemList: React.FC<ListProps> = ({ mediaList, isNLBlank }: ListProps) => {
 	/* ----------------- TODO ---------------- */
 
 	// [x] style slider buttons
@@ -85,7 +85,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList, isBlank }: ListProps) => {
 			</>
 		);
 	};
-	const buildBlankList = () => {
+	const buildBlankNomiList = () => {
 		return (
 			<div className="blankList">
 				<div className="blankList__deco"></div>
@@ -149,7 +149,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList, isBlank }: ListProps) => {
 					backgroundImage: `url(${bgrBorder}), url(${bgrBorder})`,
 				}}
 			>
-				{isBlank ? buildBlankList() : buildList()}
+				{isNLBlank ? buildBlankNomiList() : buildList()}
 			</div>
 		</div>
 	);

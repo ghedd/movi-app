@@ -12,7 +12,7 @@ const NominationSection: React.FC = () => {
 			<h2 className="mediaSectionList fontMediaSection">
 				your nomination list - {count}/5
 			</h2>
-			<ItemList mediaList={items} isBlank={count === 0} />
+			<ItemList mediaList={items} isNLBlank={count === 0} />
 		</div>
 	);
 };

@@ -1,11 +1,11 @@
-import React from // useRef,
-// useState,
+import React from // useState, // useRef,
 "react";
 import "./styles.scss";
 import { truncateText } from "../../utils/functions";
 import { useHistory } from "react-router-dom";
 import ButtonAddToNominationList from "../ButtonAddToNominationList";
 export interface MediaItemProps {
+	id?: string;
 	mediaTitle?: string;
 	mediaYearOfProd?: string;
 	imdbID: string;

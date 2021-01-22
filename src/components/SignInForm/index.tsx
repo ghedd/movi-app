@@ -2,28 +2,19 @@ import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/auth.context";
 import "./styles.scss";
 const SignInForm: React.FC = () => {
-	const [error, setError] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
-
+	const [error, setError] = useState("");
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 
-	const { signIn, currUser } = useAuth();
-	console.log(currUser?.email);
+	const { signIn, authError } = useAuth();
 
 	const handleSubmit = async (event: any) => {
 		event.preventDefault();
-		if (emailRef.current === null || passwordRef.current === null)
-			return setError("Error");
-
-		try {
-			setError("");
-			setIsLoading(true);
-
-			await signIn(emailRef.current.value, passwordRef.current.value);
-		} catch {
-			setError("Failed to sign in. ");
-		}
+		if (emailRef.current === null || passwordRef.current === null) return;
+		setIsLoading(true);
+		signIn(emailRef.current.value, passwordRef.current.value);
+		if (authError) setError(authError);
 		setIsLoading(false);
 	};
 
