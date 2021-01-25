@@ -59,7 +59,6 @@ const useSearchFetcher = (
 			})
 			.catch((e) => {
 				setError(e);
-				console.log(e);
 			});
 	};
 

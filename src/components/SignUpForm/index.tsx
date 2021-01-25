@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 // import { Redirect } from "react-router-dom";
-import { useAuth } from "../../context/auth.context";
+import { useAuth } from "../../contexts/auth.context";
 const SignUpForm: React.FC = () => {
 	const [error, setError] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -8,9 +8,9 @@ const SignUpForm: React.FC = () => {
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 	const confirmPwRef = useRef<HTMLInputElement>(null);
-	const { signUp, authError } = useAuth();
+	const { signUp, authError, signingUp } = useAuth();
 
-	const handleSubmit = async (event: any) => {
+	const handleSubmit = (event: any) => {
 		event.preventDefault();
 		if (
 			!emailRef.current ||
@@ -29,10 +29,16 @@ const SignUpForm: React.FC = () => {
 			passwordRef.current.value,
 			nameRef.current.value
 		);
-		if (authError) setError(authError);
 
 		setIsLoading(false);
 	};
+
+	useEffect(() => {
+		if (signingUp && authError) setError(authError);
+		return () => {
+			setError("");
+		};
+	}, [authError]);
 
 	return (
 		<div className="regFormCard regForm__signUp">
@@ -50,6 +56,8 @@ const SignUpForm: React.FC = () => {
 					type="email"
 					name="email"
 					ref={emailRef}
+					onBlur={() => setError("")}
+					onChange={() => setError("")}
 					required
 				/>
 				<label className="regForm__label">Password</label>
@@ -58,6 +66,8 @@ const SignUpForm: React.FC = () => {
 					type="password"
 					name="password"
 					ref={passwordRef}
+					onBlur={() => setError("")}
+					onChange={() => setError("")}
 					required
 				/>
 				<label className="regForm__label">Confirm Password</label>
@@ -66,6 +76,8 @@ const SignUpForm: React.FC = () => {
 					type="password"
 					name="confirmPw"
 					ref={confirmPwRef}
+					onBlur={() => setError("")}
+					onChange={() => setError("")}
 					required
 				/>
 				<label className="regForm__label">Name</label>
@@ -74,6 +86,8 @@ const SignUpForm: React.FC = () => {
 					type="text"
 					name="userName"
 					ref={nameRef}
+					onBlur={() => setError("")}
+					onChange={() => setError("")}
 					required
 				/>
 				<button

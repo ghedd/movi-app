@@ -28,12 +28,10 @@ const SearchPage: React.FC = () => {
 		pageNum
 	);
 
-	console.log("Collections: ");
 	const moreResults = () => {
 		if (pageNum === maxPageNum) return;
 		setPageNum(pageNum + 1);
 	};
-	console.log(`curPage: ${pageNum}, maxPage: ${maxPageNum}`);
 
 	// 3. display to search list
 

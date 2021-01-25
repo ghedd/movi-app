@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./styles.scss";
 import ItemList from "../ItemList";
-import { NominationListCtx } from "../../context/nominationList.context";
+import { NominationListCtx } from "../../contexts/nominationList.context";
 
 // NOTE this is temporary data only
 

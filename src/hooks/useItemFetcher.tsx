@@ -31,7 +31,6 @@ const useItemFetcher = (queryID: string): ItemFetchProps => {
 			})
 			.catch((e) => {
 				setError(e);
-				console.log(e);
 			});
 	};
 

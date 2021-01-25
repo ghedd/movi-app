@@ -4,11 +4,10 @@ import { ReactComponent as NominationIcon } from "../../assets/icon_add-nominati
 import {
 	NominationListCtx,
 	// NominationListCtxInterface,
-} from "../../context/nominationList.context";
+} from "../../contexts/nominationList.context";
 
 const NominationCounter: React.FC = () => {
 	const counter = useContext(NominationListCtx);
-	console.log("context:" + counter.count);
 
 	return (
 		<li className="navItem nominationCounter">

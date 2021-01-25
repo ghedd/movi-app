@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, useReducer } from "react";
 import { ContextProps } from "./nominationList.context";
 import { auth, db } from "../firebase";
+import { useNotification } from "./notifications.context";
 const AuthContext = React.createContext({} as UserCtxInterface);
 
 export const useAuth = (): UserCtxInterface => {
@@ -15,9 +16,14 @@ type User = {
 interface UserCtxInterface {
 	currUser: User | null;
 	uid: string;
+	isLoading: boolean;
+	signingIn: boolean;
+	signingUp: boolean;
+	loggingOut: boolean;
 	signUp: (email: string, password: string, name: string) => void;
 	signIn: (email: string, password: string) => void;
 	authError: string | undefined;
+	authStatus?: string;
 	logOut: () => void;
 }
 
@@ -37,12 +43,15 @@ const initState = {
 	authStatus: "",
 	authUid: "",
 };
-interface Action {
+type AuthReducerAction = {
 	type: string;
 	payload?: string | null;
 	status?: string | null;
-}
-export const authReducer = (state = initState, action: Action): any => {
+};
+export const authReducer = (
+	state = initState,
+	action: AuthReducerAction
+): any => {
 	switch (action.type) {
 		case AUTH_ACTIONS.SIGN_IN_ERROR:
 			// console.log("Error signing in");
@@ -70,9 +79,17 @@ export const AuthProvider: React.FC<ContextProps> = ({
 	const [authState, dispatch] = useReducer(authReducer, initState);
 	const [currUser, setCurrUser] = useState(null);
 	const [uid, setUid] = useState("");
-	const [isLoading, setIsLoading] = useState(true);
+	const [isLoading, setLoading] = useState(true);
+	const [signingIn, setSigningIn] = useState(false);
+	const [signingUp, setSigningUp] = useState(false);
+	const [loggingOut, setLoggingOut] = useState(false);
+	const { setNotiMessage } = useNotification();
 
 	const signUp = (email: string, password: string, name: string): any => {
+		setSigningUp(true);
+		setSigningIn(false);
+		setLoggingOut(false);
+
 		return auth
 			.createUserWithEmailAndPassword(email, password)
 			.then((response) => {
@@ -85,21 +102,10 @@ export const AuthProvider: React.FC<ContextProps> = ({
 					});
 				return newUser;
 			})
-			.catch((error) => {
-				dispatch({
-					type: AUTH_ACTIONS.SIGN_IN_ERROR,
-					payload: error.message,
-				});
-			});
-	};
-	const signIn = (email: string, password: string): any => {
-		// setAuthError("");
-		const signingIn = auth
-			.signInWithEmailAndPassword(email, password)
 			.then(() => {
 				dispatch({
-					type: AUTH_ACTIONS.SIGN_IN_SUCCESS,
-					payload: "Successfully signed in.",
+					type: AUTH_ACTIONS.SIGN_UP_SUCCESS,
+					payload: "You've successfully signed in!",
 				});
 			})
 			.catch((error) => {
@@ -107,17 +113,37 @@ export const AuthProvider: React.FC<ContextProps> = ({
 					type: AUTH_ACTIONS.SIGN_IN_ERROR,
 					payload: error.message,
 				});
-				// setTimeout(() => {
-				// 	dispatch({
-				// 		type: AUTH_ACTIONS.SIGN_IN_ERROR,
-				// 		payload: "",
-				// 	});
-				// }, 10000);
 			});
+	};
+	const signIn = async (email: string, password: string) => {
+		setSigningUp(false);
+		setLoggingOut(false);
+		setSigningIn(true);
+
+		const signingIn = await auth
+			.signInWithEmailAndPassword(email, password)
+			.then(() => {
+				dispatch({
+					type: AUTH_ACTIONS.SIGN_IN_SUCCESS,
+					payload: `Welcome back, ${email}!`,
+				});
+			})
+			.catch((error) => {
+				dispatch({
+					type: AUTH_ACTIONS.SIGN_IN_ERROR,
+					payload: error.message,
+				});
+			});
+		console.log(uid);
+
 		return signingIn;
 	};
 
 	const logOut = (): any => {
+		setLoggingOut(true);
+		setSigningUp(false);
+		setSigningIn(false);
+
 		const logingOut = auth
 			.signOut()
 			.then(() => {
@@ -137,32 +163,46 @@ export const AuthProvider: React.FC<ContextProps> = ({
 				type: AUTH_ACTIONS.LOG_OUT_ERROR,
 				payload: "",
 			});
-		}, 10000);
+		}, 10_000);
 		setUid("");
 
 		return logingOut;
 	};
 
 	useEffect(() => {
+		let cancelNoti: string | void;
+		const status = authState.authStatus;
+		if (status !== "") {
+			cancelNoti = setNotiMessage(status);
+		}
+		return () => {
+			cancelNoti;
+		};
+	}, [authState.authStatus]);
+	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user: any) => {
 			setCurrUser(user);
 			user && setUid(user.uid);
 
-			setIsLoading(false);
+			setLoading(false);
 		});
 
 		return () => {
-			unsubscribe;
+			unsubscribe();
 		};
 	}, [uid]);
 
-	console.log("uid", uid);
+	// console.log("uid", uid);
 	const value = {
 		uid,
 		currUser,
 		signUp,
 		signIn,
 		logOut,
+		signingIn,
+		signingUp,
+		loggingOut,
+		isLoading,
 		authError: authState.authError,
 		authStatus: authState.authStatus,
 	};

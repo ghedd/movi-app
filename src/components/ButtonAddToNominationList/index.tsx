@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import "./styles.scss";
 
 import { ReactComponent as AwardIcon } from "../../assets/icon_add-nomination.svg";
-import { NominationListCtx } from "../../context/nominationList.context";
+import { NominationListCtx } from "../../contexts/nominationList.context";
 import { MediaItemProps } from "../MediaItem";
-import { useAuth } from "../../context/auth.context";
+import { useAuth } from "../../contexts/auth.context";
 import { useHistory } from "react-router-dom";
 interface BtnAddListProps {
 	item: MediaItemProps;

@@ -3,7 +3,7 @@ import "./styles.scss";
 import { ReactComponent as BrandLogo } from "../../assets/icon_brand.svg";
 import { Link } from "react-router-dom";
 import NominationCounter from "../NominationCounter";
-import { useAuth } from "../../context/auth.context";
+import { useAuth } from "../../contexts/auth.context";
 const Header: React.FC = () => {
 	const { currUser, logOut } = useAuth();
 

@@ -1,0 +1,73 @@
+@import "../../utils/styles/variables.scss";
+@import "../../utils/styles/mixins.scss";
+@import "../../utils/styles/typography.scss";
+.notiBannerWrapper {
+	@include mainContainer;
+	// position: absolute;
+	position: fixed;
+	top: 60px;
+	left: 50%;
+	transform: translateX(-50%);
+	height: auto;
+	z-index: 10;
+	padding: 1.2rem 0;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.notiBanner {
+	opacity: 0;
+	// transition: all 5s ease-in-out;
+	// z-index: 10;
+	// top: 60px;
+	border: 1px solid $clrPrimary1;
+	border-radius: 10px;
+	width: 50%;
+	min-height: 50px;
+	background: $clrBgrSecondary;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: auto;
+	padding: 1rem;
+	// padding-bottom: 0;
+	align-items: center;
+	gap: 0 1rem;
+
+	&__body {
+		grid-column: 1/2;
+	}
+	&__content {
+		max-width: 65ch;
+	}
+	&__closeBtn {
+		grid-column: 2/-1;
+		height: 16px;
+		width: 16px;
+		cursor: pointer;
+	}
+}
+
+// annimations
+
+.notiBanner {
+	@keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		// 25% {
+		// 	opacity: 1;
+		// }
+		100% {
+			opacity: 1;
+		}
+	}
+	@keyframes fadeOut {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+}

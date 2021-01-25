@@ -6,7 +6,7 @@ import MediaItem, { MediaItemProps } from "../MediaItem";
 
 import { ReactComponent as IconNext } from "../../assets/icon_next.svg";
 import { ReactComponent as IconPrev } from "../../assets/icon_prev.svg";
-import { useAuth } from "../../context/auth.context";
+import { useAuth } from "../../contexts/auth.context";
 import { Link } from "react-router-dom";
 
 interface ListProps {

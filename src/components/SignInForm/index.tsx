@@ -1,23 +1,32 @@
-import React, { useRef, useState } from "react";
-import { useAuth } from "../../context/auth.context";
+import React, { useRef, useState, useEffect } from "react";
+import { useAuth } from "../../contexts/auth.context";
 import "./styles.scss";
 const SignInForm: React.FC = () => {
-	const [isLoading, setIsLoading] = useState(false);
+	// const [isLoading, setLoading] = useState(false);
 	const [error, setError] = useState("");
 	const emailRef = useRef<HTMLInputElement>(null);
 	const passwordRef = useRef<HTMLInputElement>(null);
 
-	const { signIn, authError } = useAuth();
+	const { signIn, authError, isLoading, signingIn } = useAuth();
 
-	const handleSubmit = async (event: any) => {
+	const handleSubmit = (event: any) => {
 		event.preventDefault();
-		if (emailRef.current === null || passwordRef.current === null) return;
-		setIsLoading(true);
-		signIn(emailRef.current.value, passwordRef.current.value);
-		if (authError) setError(authError);
-		setIsLoading(false);
+		// setLoading(true);
+		setError("");
+		if (emailRef.current === null || passwordRef.current === null) {
+			return;
+		} else {
+			signIn(emailRef.current.value, passwordRef.current.value);
+		}
+		// setIsLoading(true);
+		// setIsLoading(false);
 	};
-
+	useEffect(() => {
+		if (signingIn && authError) setError(authError);
+		return () => {
+			setError("");
+		};
+	}, [authError]);
 	return (
 		<div className="regFormCard regForm__signIn">
 			<form className="regForm" onSubmit={handleSubmit}>

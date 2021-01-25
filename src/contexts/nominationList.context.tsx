@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MediaItemProps } from "../components/MediaItem";
 import { useAuth } from "./auth.context";
 import { db } from "../firebase";
+import { useNotification } from "./notifications.context";
 // NOTE: generic type props for
 // react children components
 export type ContextProps = {
@@ -21,42 +22,45 @@ export const NominationListCtx = React.createContext(
 	{} as NominationListCtxInterface
 );
 
-export const NominationListPropsProvider: React.FC<ContextProps> = ({
+export const NominationListProvider: React.FC<ContextProps> = ({
 	children,
 }: ContextProps) => {
-	const { currUser, uid } = useAuth();
-	console.log(currUser?.email);
-
-	// const localData = localStorage.getItem("nominationList");
-	// const initState = localData && currUser ? JSON.parse(localData) : [];
+	const { uid } = useAuth();
+	const { setNotiMessage } = useNotification();
 	const [items, setItems] = useState<MediaItemProps[] | any>([]);
 	const [count, setCount] = useState(0);
-	// const [isFull] = useState(false);
+
+	// show notification
 
 	useEffect(() => {
-		let unsubscribe: any;
+		let unsubscribe = (): void => {
+			// unsubscribe firestore as soon as
+			// data has been updated
+		};
 
-		// retrieve data from firebase
-		uid &&
-			db.collection(`/usersNominationList/${uid}/nominationList`).onSnapshot(
-				(snapshot) => {
-					const list = snapshot.docs.map((doc) => ({
-						id: doc.id,
-						...doc.data(),
-					}));
-					setItems(list);
-					setCount(list.length);
-				},
-				(error) => {
-					console.log(error.message);
-				}
-			);
+		if (uid) {
+			unsubscribe = db
+				.collection(`/usersNominationList/${uid}/nominationList`)
+				.onSnapshot(
+					(snapshot) => {
+						const list = snapshot.docs.map((doc) => ({
+							id: doc.id,
+							...doc.data(),
+						}));
+						setItems(list);
+						setCount(list.length);
+					},
+					(error) => {
+						console.log(error.message);
+					}
+				);
+		}
 		// clear context as
 		// signing out
-		setItems([]);
-		setCount(0);
 		return () => {
-			unsubscribe;
+			setItems([]);
+			setCount(0);
+			unsubscribe();
 		};
 	}, [uid]);
 
@@ -69,6 +73,7 @@ export const NominationListPropsProvider: React.FC<ContextProps> = ({
 		});
 		return dup;
 	};
+
 	const addItemToNominationList = (item: MediaItemProps) => {
 		// check for dup
 		const dup = duplicateCheck(items, item);
@@ -82,32 +87,26 @@ export const NominationListPropsProvider: React.FC<ContextProps> = ({
 				mediaType: "movie",
 			});
 			setCount(items.length);
-			if (count === 5) return;
+		}
+		if (count === 4) {
+			setNotiMessage("Hoorray! You've got a full list of 5 nominees");
 		}
 	};
-	console.log("item: " + items);
 
 	const removeItemFromNominationList = (imdbID: string) => {
 		if (count === 0) return;
-		/* const updatedItems = items.filter((item: any) => {
-			return item.imdbID !== imdbID;
-		}); 
-		*/
 
-		// setItems(updatedItems);
 		// NOTE: array.prototype.filter()
 		// ALWAYS returns an array
-		const itemToBeDel = Object.assign(
-			items.filter((item: any) => {
-				return item.imdbID === imdbID;
-			})[0]
-		);
+		const itemToBeDel = items.filter((item: any) => {
+			return item.imdbID === imdbID;
+		})[0];
 
 		// remove an item (doc) from firebase
 		db.collection(`/usersNominationList/${uid}/nominationList`)
 			.doc(itemToBeDel.id)
 			.delete()
-			.then(() => console.log("Item succesfully deleted"))
+			// .then(() => console.log("Item succesfully deleted"))
 			.catch((error) => console.log("Error removing document:", error));
 		setCount(items.length);
 	};
