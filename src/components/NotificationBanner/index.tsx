@@ -13,7 +13,7 @@ const NotificationBanner: React.FC = () => {
 		turnOffNotiWithBtn,
 	} = useNotification();
 
-	const { uid, authStatus } = useAuth();
+	const { uid, authStatus, signingIn } = useAuth();
 	const [userName, setUserName] = useState("");
 
 	/* ----------------- NOTE ---------------- */
@@ -67,7 +67,7 @@ const NotificationBanner: React.FC = () => {
 
 	return (
 		<div className="notiBannerWrapper">
-			{uid && authStatus === "Welcome back" ? (
+			{signingIn && authStatus !== "" ? (
 				notifyOnFullNomLis()
 			) : (
 				<div
