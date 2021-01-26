@@ -125,7 +125,7 @@ export const AuthProvider: React.FC<ContextProps> = ({
 			.then(() => {
 				dispatch({
 					type: AUTH_ACTIONS.SIGN_IN_SUCCESS,
-					payload: `Welcome back, ${email}!`,
+					payload: "Welcome back",
 				});
 			})
 			.catch((error) => {
@@ -134,7 +134,6 @@ export const AuthProvider: React.FC<ContextProps> = ({
 					payload: error.message,
 				});
 			});
-		console.log(uid);
 
 		return signingIn;
 	};
@@ -163,22 +162,19 @@ export const AuthProvider: React.FC<ContextProps> = ({
 				type: AUTH_ACTIONS.LOG_OUT_ERROR,
 				payload: "",
 			});
-		}, 10_000);
+		}, 5_000);
 		setUid("");
 
 		return logingOut;
 	};
 
 	useEffect(() => {
-		let cancelNoti: string | void;
 		const status = authState.authStatus;
 		if (status !== "") {
-			cancelNoti = setNotiMessage(status);
+			setNotiMessage(status);
 		}
-		return () => {
-			cancelNoti;
-		};
 	}, [authState.authStatus]);
+
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user: any) => {
 			setCurrUser(user);

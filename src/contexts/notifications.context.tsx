@@ -85,7 +85,6 @@ export const NotificationsProvider: React.FC<ContextProps> = ({
 	const [duration, setDuration] = useState(1);
 
 	const setNotiMessage = (message: string): void => {
-
 		dispatch({
 			type: "NOTI_SHOW",
 			payload: message,
@@ -104,12 +103,13 @@ export const NotificationsProvider: React.FC<ContextProps> = ({
 		}, duration * 1000);
 	};
 
-	const disableNoti = (): void => {
+	const disableNoti = (callback: void): void => {
 		setTimeout(() => {
+			callback;
 			dispatch({
 				type: "NOTI_DISABLED",
 			});
-		}, (duration + 1) * 1000);
+		}, duration * 1000);
 	};
 	const turnOffNotiWithBtn = (): void => {
 		return dispatch({
@@ -119,10 +119,9 @@ export const NotificationsProvider: React.FC<ContextProps> = ({
 	useEffect(() => {
 		if (notiState.notiContent) {
 			setNotiDuration(5);
-			hideNoti();
 		}
 		return () => {
-			disableNoti();
+			disableNoti(hideNoti());
 		};
 	}, [notiState.notiContent]);
 

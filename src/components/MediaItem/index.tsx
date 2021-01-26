@@ -1,5 +1,4 @@
-import React from // useState, // useRef,
-"react";
+import React from "react"; // useState, // useRef,
 import "./styles.scss";
 import { truncateText } from "../../utils/functions";
 import { useHistory } from "react-router-dom";
@@ -64,10 +63,6 @@ const MediaItem: React.FC<MediaItemProps> = ({
 	};
 
 	const handleClick = (): void => {
-		// NOTE temporary
-		// history.push( linkToMediaPage );
-		// console.log(linkToMediaPage);
-		// console.log(history);
 		history.push(`item/${otherProps.imdbID}`);
 	};
 	return (
