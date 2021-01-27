@@ -12,15 +12,21 @@
 	border-radius: 10px;
 	// background: red;
 	&__poster {
-		border-radius: 10px;
 		background: #e9e62d;
 		background-repeat: no-repeat;
 		background-position: top center;
-		/* background: linear-gradient(
-			115.87deg,
-			rgb(54, 114, 248) 0%,
-			rgb(176, 30, 255) 100%
-		); */
+		&::before {
+			content: "";
+			top: 0;
+			height: 100%;
+			width: 100%;
+			background: $clrBgrPrimary;
+			opacity: 0;
+		}
+	}
+	&__poster,
+	&__poster::before {
+		border-radius: 10px;
 	}
 	&__brief {
 		padding: 1rem 0.8rem;
@@ -55,16 +61,20 @@
 .mediaItem {
 	z-index: 0;
 	position: relative;
+
 	&__poster {
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+		&::before {
+			position: absolute;
+			z-index: 0;
+		}
 	}
 	&__brief {
 		position: absolute;
-		height: 30%;
 		left: 0;
 		right: 0;
 		bottom: 0;
@@ -76,35 +86,27 @@
 .mediaItem {
 	// width: 100%;
 	z-index: 0;
-
 	transform-origin: center;
+
 	&__brief {
-		transition-delay: 200ms;
 		transition: all 250ms ease-in-out;
 		opacity: 0;
-		// @include bgrOverlayMainTheme(1, 1);
 		background-color: $clrBgrPrimary;
+		height: 30%;
+		clip-path: inset(100% 0 0 0);
 	}
+	transition: all 250ms ease-in-out;
 	&:hover {
-		// transition: all 400ms ease-out;
-		// height: 35vh;
-		// width: 150%;
-		// transform: scale(1.2);
-		// z-index: 2;
-		// @include shadowRaisedSpread;
+		.mediaItem__poster::before {
+			opacity: 0.6;
+		}
 
-		.mediaItem__brief {
-			// @keyframes fadeIn {
-			// 	0% {
-			opacity: 1;
-			// 	}
-
-			// 	100% {
-			// 		opacity: 0.95;
-			// 	}
-			// }
-
-			// opacity: 1;
+		.mediaItem {
+			&__brief {
+				opacity: 0.9;
+				// height: 30%;
+				clip-path: inset(0 0 0 0);
+			}
 		}
 	}
 

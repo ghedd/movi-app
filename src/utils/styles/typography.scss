@@ -109,6 +109,7 @@ body > * {
 	&__subtitle {
 		@extend .fontHero__subtitle;
 		font-size: clamp(14px, 5vw, 16px);
+		font-weight: normal;
 	}
 }
 

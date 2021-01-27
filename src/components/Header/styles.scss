@@ -26,6 +26,9 @@
 		align-items: center;
 		.navItem {
 			list-style: none;
+			:visited {
+				color: $clrPrimary1;
+			}
 		}
 	}
 

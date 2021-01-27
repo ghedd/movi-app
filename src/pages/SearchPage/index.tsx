@@ -59,9 +59,12 @@ const SearchPage: React.FC = () => {
 				)}
 				{error !== "" || (pageNum === maxPageNum && !isLoading) ? (
 					<span className="resultStatus">End of results</span>
-				) : (
-					<SearchControl isLoading={isLoading} moreResults={moreResults} />
-				)}
+				) : null}
+				<SearchControl
+					isLoading={isLoading}
+					moreResults={moreResults}
+					endOfResults={pageNum === maxPageNum && !isLoading}
+				/>
 			</div>
 		</main>
 	);
