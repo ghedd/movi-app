@@ -12,9 +12,14 @@ import { Link } from "react-router-dom";
 interface ListProps {
 	mediaList: MediaItemProps[];
 	isNLBlank?: boolean;
+	isNominationList?: boolean;
 }
 
-const ItemList: React.FC<ListProps> = ({ mediaList, isNLBlank }: ListProps) => {
+const ItemList: React.FC<ListProps> = ({
+	mediaList,
+	isNLBlank,
+	isNominationList,
+}: ListProps) => {
 	/* ----------------- TODO ---------------- */
 
 	// [x] style slider buttons
@@ -125,6 +130,12 @@ const ItemList: React.FC<ListProps> = ({ mediaList, isNLBlank }: ListProps) => {
 			</>
 		);
 	};
+	useEffect(() => {
+		if (isNominationList) checkForOverflow();
+		return () => {
+			checkForOverflow();
+		};
+	}, [mediaList.length]);
 
 	useEffect(() => {
 		window.addEventListener("resize", () => {
