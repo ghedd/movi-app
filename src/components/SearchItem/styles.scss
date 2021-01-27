@@ -1,7 +1,6 @@
 @import "../../utils/styles/variables.scss";
 .searchItem {
 	background: $clrBgrSecondary;
-	position: relative;
 	margin-bottom: $marginFluidSmall;
 	padding: 0.5rem;
 	height: 100%;
@@ -57,5 +56,25 @@
 		&__year {
 			margin-bottom: $marginFluidMed;
 		}
+	}
+}
+.searchItem {
+	transition: all 0.5s ease-in-out;
+	position: relative;
+	z-index: 0;
+	transition: all 0.5s ease-in;
+	&::before {
+		position: absolute;
+		content: "";
+		top: 0;
+		background: $clrGradientPrimary;
+		height: 100%;
+		width: 100%;
+		z-index: -1;
+		opacity: 0;
+		border-radius: 10px;
+	}
+	&:hover::before {
+		opacity: 0.3;
 	}
 }
