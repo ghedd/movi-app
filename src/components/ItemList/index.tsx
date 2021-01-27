@@ -47,7 +47,7 @@ const ItemList: React.FC<ListProps> = ({ mediaList, isNLBlank }: ListProps) => {
 	const handleScroll = (direction: string): void => {
 		if (sliderRef.current !== null) {
 			const { clientWidth } = sliderRef.current;
-			const dis = clientWidth / 2;
+			const dis = clientWidth;
 
 			switch (direction) {
 				case "left":
