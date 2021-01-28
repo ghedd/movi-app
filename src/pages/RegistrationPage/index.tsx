@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom";
 const RegistrationPage: React.FC = () => {
 	const { currUser } = useAuth();
 
-	if (currUser) return <Redirect to="/" />;
+	if (currUser != null) return <Redirect to="/" />;
 	return (
 		<div className="page regPage">
 			<div className="regPage__deco">
