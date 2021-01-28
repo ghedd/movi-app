@@ -7,10 +7,11 @@ import { useAuth } from "../../contexts/auth.context";
 import { Redirect } from "react-router-dom";
 
 const RegistrationPage: React.FC = () => {
-	const { currUser } = useAuth();
+	const { uid } = useAuth();
 
-	if (currUser != null) return <Redirect to="/" />;
-	return (
+	return uid !== "" ? (
+		<Redirect to="/" />
+	) : (
 		<div className="page regPage">
 			<div className="regPage__deco">
 				<div className="backgroundImage">
