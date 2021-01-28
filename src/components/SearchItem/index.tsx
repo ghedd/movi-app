@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { MediaItemProps } from "../MediaItem";
 import ButtonAddToNominationList from "../ButtonAddToNominationList";
 
+import useWindowResize from "../../hooks/useWindowResize";
+import { truncateText } from "../../utils/functions";
 const UNAVAI_POSTER = "N/A";
 
 const SearchItem: React.FC<SearchedItemProps> = ({
@@ -20,6 +22,7 @@ const SearchItem: React.FC<SearchedItemProps> = ({
 		mediaYearOfProd: otherProps.Year,
 	};
 
+	const { windowWidth } = useWindowResize();
 	return (
 		<div className="searchItem">
 			<div className="searchItem__poster">
@@ -36,7 +39,9 @@ const SearchItem: React.FC<SearchedItemProps> = ({
 			</div>
 			<div className="searchItem__brief">
 				<span className="searchItem__brief__title fontMediaItem__title">
-					<Link to={`/item/${otherProps.imdbID}`}>{Title}</Link>
+					<Link to={`/item/${otherProps.imdbID}`}>
+						{windowWidth && windowWidth < 768 ? truncateText(Title, 20) : Title}
+					</Link>
 				</span>
 				<span className="searchItem__brief__year fontMediaItem__year">
 					{otherProps.Year}

@@ -8,6 +8,7 @@ import { ReactComponent as IconNext } from "../../assets/icon_next.svg";
 import { ReactComponent as IconPrev } from "../../assets/icon_prev.svg";
 import { useAuth } from "../../contexts/auth.context";
 import { Link } from "react-router-dom";
+import { isMobile } from "react-device-detect";
 
 interface ListProps {
 	mediaList: MediaItemProps[];
@@ -33,7 +34,7 @@ const ItemList: React.FC<ListProps> = ({
 	const [canScrollRight, setCanScrollRight] = useState(false);
 	const [hasOverFlow, setHasOverFlow] = useState(true);
 	const sliderRef = useRef<HTMLDivElement>(null);
-
+	// const { isMobDevice } = useTouchScreenDetector();
 	const checkForScrollPosition = (): void => {
 		if (sliderRef.current !== null) {
 			const { scrollLeft, scrollWidth, clientWidth } = sliderRef.current;
@@ -67,6 +68,7 @@ const ItemList: React.FC<ListProps> = ({
 	};
 
 	const sliderControls = () => {
+		if (isMobile) return null;
 		return (
 			<>
 				<button

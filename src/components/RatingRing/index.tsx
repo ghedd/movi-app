@@ -61,6 +61,9 @@ const RatingRing: React.FC<RatingProps> = ({
 		}, 5);
 
 		if (ratingDisplayVal === convertedRating) clearTimeout(progress);
+		return () => {
+			clearTimeout(progress);
+		};
 	}, [ratingDisplayVal]);
 
 	return (

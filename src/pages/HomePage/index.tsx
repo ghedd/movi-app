@@ -5,6 +5,7 @@ import NominationSection from "../../components/NominationSection";
 // import MediaListByTypes from "../../components/SectionListByMediaTypes";
 import "./styles.scss";
 const HomePage: React.FC = () => {
+
 	return (
 		<main className="page homePage">
 			<HeroSection />
