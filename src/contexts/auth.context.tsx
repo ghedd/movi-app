@@ -149,6 +149,7 @@ export const AuthProvider: React.FC<ContextProps> = ({
 					type: AUTH_ACTIONS.LOG_OUT_SUCCESS,
 					payload: "Successfully logged out. Come back soon!",
 				});
+				setUserProfile({ name: "", initial: "" });
 			})
 			.catch((error) =>
 				dispatch({
@@ -167,13 +168,6 @@ export const AuthProvider: React.FC<ContextProps> = ({
 
 		return logingOut;
 	};
-
-	useEffect(() => {
-		const status = authState.authStatus;
-		if (status !== "") {
-			setNotiMessage(status);
-		}
-	}, [authState.authStatus]);
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user: any) => {
@@ -207,20 +201,20 @@ export const AuthProvider: React.FC<ContextProps> = ({
 
 	useEffect(() => {
 		if (signingIn && userProfile.name !== "") {
-			setTimeout(() => {
-				dispatch({
-					type: AUTH_ACTIONS.SIGN_IN_SUCCESS,
-					payload: `Welcome back, ${userProfile.name}!`,
-				});
-				setSigningIn(false);
-			}, 300);
+			dispatch({
+				type: AUTH_ACTIONS.SIGN_IN_SUCCESS,
+				payload: `Welcome back, ${userProfile.name}!`,
+			});
+			setSigningIn(false);
 		}
+	}, [userProfile.name]);
 
-		return () => {
-			setUserProfile({ name: "", initial: "" });
-		};
-	}, [signingIn]);
-
+	useEffect(() => {
+		const status = authState.authStatus;
+		if (status !== "") {
+			setNotiMessage(status);
+		}
+	}, [authState.authStatus]);
 	const value = {
 		uid,
 		currUser,
