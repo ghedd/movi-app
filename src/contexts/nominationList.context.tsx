@@ -29,9 +29,9 @@ export const NominationListProvider: React.FC<ContextProps> = ({
 	const { setNotiMessage } = useNotification();
 	const [items, setItems] = useState<MediaItemProps[] | any>([]);
 	const [count, setCount] = useState(0);
-
 	// show notification
-
+	const tada = 127881;
+	const tadaEmoj = String.fromCodePoint( tada );
 	useEffect(() => {
 		let unsubscribe = (): void => {
 			// unsubscribe firestore as soon as
@@ -89,7 +89,7 @@ export const NominationListProvider: React.FC<ContextProps> = ({
 			setCount(items.length);
 		}
 		if (count === 4) {
-			setNotiMessage("Hoorray! You've got a full list of 5 nominees");
+			setNotiMessage(`${tadaEmoj} Hoorray! You've got a full list of 5 nominees!`);
 		}
 	};
 

@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useReducer } from "react";
 import { ContextProps } from "./nominationList.context";
 import { auth, db } from "../firebase";
 import { useNotification } from "./notifications.context";
+
 const AuthContext = React.createContext({} as UserCtxInterface);
 
 export const useAuth = (): UserCtxInterface => {
@@ -16,6 +17,8 @@ type User = {
 interface UserCtxInterface {
 	currUser: User | null;
 	uid: string;
+	userName: string;
+	userInitial: string;
 	isLoading: boolean;
 	signingIn: boolean;
 	signingUp: boolean;
@@ -78,6 +81,7 @@ export const AuthProvider: React.FC<ContextProps> = ({
 }: ContextProps) => {
 	const [authState, dispatch] = useReducer(authReducer, initState);
 	const [currUser, setCurrUser] = useState(null);
+	const [userProfile, setUserProfile] = useState({ name: "", initial: "" });
 	const [uid, setUid] = useState("");
 	const [isLoading, setLoading] = useState(true);
 	const [signingIn, setSigningIn] = useState(false);
@@ -122,12 +126,7 @@ export const AuthProvider: React.FC<ContextProps> = ({
 
 		const signingIn = await auth
 			.signInWithEmailAndPassword(email, password)
-			.then(() => {
-				dispatch({
-					type: AUTH_ACTIONS.SIGN_IN_SUCCESS,
-					payload: "Welcome back",
-				});
-			})
+
 			.catch((error) => {
 				dispatch({
 					type: AUTH_ACTIONS.SIGN_IN_ERROR,
@@ -164,6 +163,7 @@ export const AuthProvider: React.FC<ContextProps> = ({
 			});
 		}, 5_000);
 		setUid("");
+		setCurrUser(null);
 
 		return logingOut;
 	};
@@ -177,21 +177,55 @@ export const AuthProvider: React.FC<ContextProps> = ({
 
 	useEffect(() => {
 		const unsubscribe = auth.onAuthStateChanged((user: any) => {
-			setCurrUser(user);
-			user && setUid(user.uid);
+			if (user) {
+				setCurrUser(user);
+				setUid(user.uid);
+				const userDoc = db.collection("users").doc(`${user.uid}`);
+				userDoc
+					.get()
+					.then((doc) => {
+						if (doc.exists) {
+							const userRef = doc.data();
+							userRef &&
+								setUserProfile({
+									name: userRef.name,
+									initial: userRef.initial,
+								});
+						}
+					})
 
+					.catch((error) => console.log(error));
+			}
 			setLoading(false);
 		});
 
 		return () => {
 			unsubscribe();
+			setLoading(true);
 		};
-	}, [uid]);
+	}, []);
 
-	// console.log("uid", uid);
+	useEffect(() => {
+		if (signingIn && userProfile.name !== "") {
+			setTimeout(() => {
+				dispatch({
+					type: AUTH_ACTIONS.SIGN_IN_SUCCESS,
+					payload: `Welcome back, ${userProfile.name}!`,
+				});
+				setSigningIn(false);
+			}, 300);
+		}
+
+		return () => {
+			setUserProfile({ name: "", initial: "" });
+		};
+	}, [signingIn]);
+
 	const value = {
 		uid,
 		currUser,
+		userName: userProfile.name,
+		userInitial: userProfile.initial,
 		signUp,
 		signIn,
 		logOut,
